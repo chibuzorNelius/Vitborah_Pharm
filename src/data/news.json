@@ -1,0 +1,78 @@
+[
+  {
+    "id": "vitborah-expands-distribution-hub-ibeju-lekki",
+    "slug": "vitborah-expands-distribution-hub-ibeju-lekki",
+    "title": "Vitborah Expands Cold-Chain & Central Distribution Facility in Ibeju-Lekki",
+    "date": "October 18, 2026",
+    "isoDate": "2026-10-18",
+    "category": "Corporate Expansion",
+    "author": "Corporate Communications Desk",
+    "featuredImage": "/company_image/pharmacy.jpeg",
+    "summary": "Vitborah Pharmaceutical Company Limited has commissioned an expanded temperature-regulated warehousing facility at its Awoyaya headquarters to reinforce nationwide cold-chain delivery of sensitive injectable therapeutics.",
+    "body": [
+      "In a decisive move to strengthen healthcare supply chain security and temperature-sensitive medicine integrity, Vitborah Pharmaceutical Company Limited has officially commissioned its expanded central warehousing facility in Awoyaya, Ibeju-Lekki, Lagos.",
+      "The newly configured facility incorporates modern climate-controlled storage zones specifically engineered for temperature-vulnerable pharmaceutical formulations, including Boracef Ceftriaxone injectable vials, Vitboter Artemether, and parenteral B-Complex solutions.",
+      "Speaking during the operational walkthrough, Managing Director Pharm. Okechukwu Vitus Agada stated: 'The pharmaceutical supply chain in Nigeria demands uncompromising vigilance. With this upgraded central hub, we can ensure that every vial, tablet, and sachet preserves its pharmacological potency from factory release until it reaches the clinician and patient.'",
+      "The hub integrates automated inventory forecasting and batch-tracking systems to serve healthcare institutions and authorized distributors with accelerated turnaround times across all 36 states and the Federal Capital Territory."
+    ],
+    "tags": ["Cold-Chain", "Distribution", "Quality Assurance", "Lagos"],
+    "featured": true
+  },
+  {
+    "id": "nafdac-compliance-quality-assurance-milestone",
+    "slug": "nafdac-compliance-quality-assurance-milestone",
+    "title": "Quality Assurance Milestone: Vitborah Reaffirms 100% NAFDAC Registration Across Antimicrobial Portfolio",
+    "date": "September 24, 2026",
+    "isoDate": "2026-09-24",
+    "category": "Regulatory & Quality",
+    "author": "Regulatory Affairs Directorate",
+    "featuredImage": "/products_image/WhatsApp Image 2026-11-02 at 3.04.20 PM.jpeg",
+    "summary": "Following comprehensive batch release testing and surveillance audits, Vitborah confirms renewed NAFDAC certifications for flagship brands including Boracef, Boraflox 500, Staxim 500, and Vitbonac.",
+    "body": [
+      "Vitborah Pharmaceutical Company Limited is pleased to confirm the successful conclusion of periodic regulatory quality audits and post-marketing surveillance with the National Agency for Food and Drug Administration and Control (NAFDAC).",
+      "All therapeutic batches distributed under the Vitborah banner—including Boracef Ceftriaxone (NAFDAC Reg. No. B4-1435), Boraflox 500 Ciprofloxacin, Staxim 500 Cefuroxime (NAFDAC Reg. No. B4-6022), Vitbonac 50 (NAFDAC Reg. No. A4-8115), and Venicin (NAFDAC Reg. No. A4-7934)—continue to adhere to international pharmacopeial specifications (BP/USP).",
+      "Vitborah enforces stringent pre-shipment quality verification protocols with WHO-GMP certified manufacturing partners, ensuring absence of sub-standard or counterfeit medicines in healthcare networks.",
+      "The company encourages all healthcare providers and dispensing pharmacists to verify authenticity through verified batch documentation and official Vitborah tamper-evident packaging."
+    ],
+    "tags": ["NAFDAC", "Antibiotics", "Regulatory Compliance", "Patient Safety"],
+    "featured": true
+  },
+  {
+    "id": "vitborah-foundation-health-outreach-lagos",
+    "slug": "vitborah-foundation-health-outreach-lagos",
+    "title": "Vitborah Foundation Delivers Free Screenings & Essential Medicines in Community Healthcare Outreach",
+    "date": "August 12, 2026",
+    "isoDate": "2026-08-12",
+    "category": "Community & CSR",
+    "author": "Vitborah Foundation Secretariat",
+    "featuredImage": "/company_image/charity.jpeg",
+    "summary": "The charitable wing of Vitborah Pharmaceuticals provided free medical consultations, hypertension checks, blood glucose screenings, and maternal care supplies to over 1,200 beneficiaries.",
+    "body": [
+      "In fulfillment of its social responsibility mandate, the Vitborah Foundation organized a comprehensive grassroots medical outreach in underserved suburban communities in Lagos State.",
+      "The multi-disciplinary healthcare team—comprising volunteer physicians, pharmacists, nurses, and laboratory scientists—conducted free blood pressure diagnostics, rapid blood glucose evaluations, malaria rapid diagnostic tests (RDTs), and nutritional assessments.",
+      "Families diagnosed with acute conditions received complimentary therapeutic medications under doctor supervision, including artemisinin-based antimalarials, oral rehydration salts (ORS), and pediatric hematinic supplements.",
+      "Pharm. Vitus Agada reiterated the company's pledge: 'Our duty as healthcare leaders extends beyond commercial transactions. True healthcare impact begins at the grassroots, where preventative awareness and timely clinical intervention save lives.'"
+    ],
+    "tags": ["Charity", "Healthcare Outreach", "Free Medical Mission", "CSR"],
+    "featured": true
+  },
+  {
+    "id": "launch-new-age-supplement-range",
+    "slug": "launch-new-age-supplement-range",
+    "title": "Vitborah Unveils the New AGE Premium Dietary Supplement Line for Preventive Wellness",
+    "date": "July 05, 2026",
+    "isoDate": "2026-07-05",
+    "category": "Product Portfolio",
+    "author": "Product Development Team",
+    "featuredImage": "/company_image/new age.jpeg",
+    "summary": "To address the increasing focus on preventative cardiometabolic wellness and joint resilience, Vitborah introduces its premium New AGE nutraceutical collection across Nigeria.",
+    "body": [
+      "Recognizing the critical role of targeted nutrition in modern disease prevention, Vitborah Pharmaceutical Company Limited has officially launched its New AGE dietary supplement line in Nigerian pharmacies and medical centers.",
+      "The portfolio includes high-potency formulations such as NAFDAC-registered Berberine 600mg (NAFDAC Reg. No: A7-103922), molecularly distilled Omega-3 Fish Oil 1000mg, high-absorption Magnesium Glycinate 400mg, Co.Q10 200mg, Women's 55 Billion CFU Probiotics, and Super Collagen + Vitamin C.",
+      "Each supplement is packaged in protective UV-resistant containers with nitrogen flushing to maintain active nutrient potency in tropical climates.",
+      "The New AGE line is now available for bulk ordering by licensed pharmacies, clinic dispensaries, and retail wellness outlets nationwide."
+    ],
+    "tags": ["New AGE", "Supplements", "Wellness", "Preventive Care"],
+    "featured": false
+  }
+]

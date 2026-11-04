@@ -1,0 +1,34 @@
+[
+  {
+    "id": "zhejiang-jutai",
+    "name": "Zhejiang Jutai Pharmaceutical Co., Ltd.",
+    "type": "WHO-GMP Manufacturing Partner",
+    "location": "Quzhou City, Zhejiang Province, China",
+    "description": "Certified high-containment sterile injectable manufacturing partner producing Vitborah's Boracef Ceftriaxone under stringent cGMP standards.",
+    "partnershipScope": "Contract Sterile Lyophilized Vial Manufacturing & Quality Release"
+  },
+  {
+    "id": "teaching-hospitals",
+    "name": "Tertiary & Teaching Hospitals Network",
+    "type": "Institutional Healthcare Providers",
+    "location": "Nationwide across Nigeria",
+    "description": "Supply agreements delivering hospital-grade cephalosporin antibiotics, antimalarials, and emergency injectables to intensive care and surgical units.",
+    "partnershipScope": "Clinical Institutional Procurement & Pharmacovigilance"
+  },
+  {
+    "id": "community-pharmacies",
+    "name": "Licensed Community Pharmacies Network",
+    "type": "Retail & Dispensing Healthcare Partners",
+    "location": "Lagos, Abuja, Port Harcourt, Kano, Onitsha, Ibadan & Nationwide",
+    "description": "Over 1,500 registered retail pharmacies distributing Vitborah prescription formulations and New AGE dietary supplements directly to consumers.",
+    "partnershipScope": "Direct Wholesale Fulfillment & Patient Counseling"
+  },
+  {
+    "id": "acpn-partners",
+    "name": "Association of Community Pharmacists of Nigeria (ACPN)",
+    "type": "Professional Regulatory & Practice Alliance",
+    "location": "Nigeria",
+    "description": "Engaged in collaborative continuous professional education, ethical dispensing guidelines, and community health screening campaigns.",
+    "partnershipScope": "Continuing Education & Good Pharmacy Practice (GPP)"
+  }
+]

@@ -1,60 +1,206 @@
-import './style.css'
-import heroImg from './assets/hero.png'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.js'
+import './style.css';
+import { renderHeader, initHeaderListeners } from './components/Header.js';
+import { renderFooter } from './components/Footer.js';
+import { renderPromotionalModal, initPromotionalModal } from './components/PromotionalModal.js';
+import { registerRoutes, initRouter } from './utils/router.js';
 
-document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// Pages
+import { renderHomePage, initHomePage } from './pages/HomePage.js';
+import { renderTherapeuticCollectionPage, initTherapeuticCollectionPage } from './pages/TherapeuticCollectionPage.js';
+import { renderSupplementsCollectionPage, initSupplementsCollectionPage } from './pages/SupplementsCollectionPage.js';
+import { renderProductDetailPage } from './pages/ProductDetailPage.js';
+import { renderAboutPage } from './pages/AboutPage.js';
+import { renderLeadershipPage } from './pages/LeadershipPage.js';
+import { renderCeoProfilePage } from './pages/CeoProfilePage.js';
+import { renderBranchesPage } from './pages/BranchesPage.js';
+import { renderNewsPage } from './pages/NewsPage.js';
+import { renderArticleDetailPage } from './pages/ArticleDetailPage.js';
+import { renderCharityPage } from './pages/CharityPage.js';
+import { renderPartnersPage } from './pages/PartnersPage.js';
+import { renderWorkWithUsPage, initWorkWithUsPage } from './pages/WorkWithUsPage.js';
+import { renderContactPage, initContactPage } from './pages/ContactPage.js';
+import { renderLegalPage } from './pages/LegalPage.js';
+import { renderNotFoundPage } from './pages/NotFoundPage.js';
 
-<div class="ticks"></div>
+function mountLayout() {
+  const appEl = document.getElementById('app');
+  if (!appEl) return;
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+  appEl.innerHTML = `
+    ${renderHeader()}
+    <main id="main-content"></main>
+    ${renderFooter()}
+    ${renderPromotionalModal()}
+  `;
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+  initHeaderListeners();
+  initPromotionalModal();
+}
 
-setupCounter(document.querySelector('#counter'))
+function setPageContent(html, initFn = null) {
+  const mainEl = document.getElementById('main-content');
+  if (mainEl) {
+    mainEl.innerHTML = html;
+    if (typeof initFn === 'function') {
+      initFn();
+    }
+  }
+}
+
+// Bootstrap routes
+mountLayout();
+
+registerRoutes([
+  {
+    path: '/',
+    handler: () => setPageContent(renderHomePage(), initHomePage)
+  },
+  {
+    path: '/about',
+    handler: () => setPageContent(renderAboutPage())
+  },
+  {
+    path: '/about/',
+    handler: () => setPageContent(renderAboutPage())
+  },
+  {
+    path: '/products/therapeutic',
+    handler: () => setPageContent(renderTherapeuticCollectionPage(), initTherapeuticCollectionPage)
+  },
+  {
+    path: '/products/therapeutic/',
+    handler: () => setPageContent(renderTherapeuticCollectionPage(), initTherapeuticCollectionPage)
+  },
+  {
+    path: '/therapeutic-medicines',
+    handler: () => setPageContent(renderTherapeuticCollectionPage(), initTherapeuticCollectionPage)
+  },
+  {
+    path: '/therapeutic-medicines/',
+    handler: () => setPageContent(renderTherapeuticCollectionPage(), initTherapeuticCollectionPage)
+  },
+  {
+    path: '/products/supplements',
+    handler: () => setPageContent(renderSupplementsCollectionPage(), initSupplementsCollectionPage)
+  },
+  {
+    path: '/products/supplements/',
+    handler: () => setPageContent(renderSupplementsCollectionPage(), initSupplementsCollectionPage)
+  },
+  {
+    path: '/supplements',
+    handler: () => setPageContent(renderSupplementsCollectionPage(), initSupplementsCollectionPage)
+  },
+  {
+    path: '/supplements/',
+    handler: () => setPageContent(renderSupplementsCollectionPage(), initSupplementsCollectionPage)
+  },
+  {
+    path: '/products/:slug',
+    handler: (params) => setPageContent(renderProductDetailPage(params))
+  },
+  {
+    path: '/products/:slug/',
+    handler: (params) => setPageContent(renderProductDetailPage(params))
+  },
+  {
+    path: '/leadership',
+    handler: () => setPageContent(renderLeadershipPage())
+  },
+  {
+    path: '/leadership/',
+    handler: () => setPageContent(renderLeadershipPage())
+  },
+  {
+    path: '/leadership/vitus-agada',
+    handler: () => setPageContent(renderCeoProfilePage())
+  },
+  {
+    path: '/leadership/vitus-agada/',
+    handler: () => setPageContent(renderCeoProfilePage())
+  },
+  {
+    path: '/branches',
+    handler: () => setPageContent(renderBranchesPage())
+  },
+  {
+    path: '/branches/',
+    handler: () => setPageContent(renderBranchesPage())
+  },
+  {
+    path: '/news',
+    handler: () => setPageContent(renderNewsPage())
+  },
+  {
+    path: '/news/',
+    handler: () => setPageContent(renderNewsPage())
+  },
+  {
+    path: '/news/:slug',
+    handler: (params) => setPageContent(renderArticleDetailPage(params))
+  },
+  {
+    path: '/news/:slug/',
+    handler: (params) => setPageContent(renderArticleDetailPage(params))
+  },
+  {
+    path: '/charity',
+    handler: () => setPageContent(renderCharityPage())
+  },
+  {
+    path: '/charity/',
+    handler: () => setPageContent(renderCharityPage())
+  },
+  {
+    path: '/partners',
+    handler: () => setPageContent(renderPartnersPage())
+  },
+  {
+    path: '/partners/',
+    handler: () => setPageContent(renderPartnersPage())
+  },
+  {
+    path: '/work-with-us',
+    handler: () => setPageContent(renderWorkWithUsPage(), initWorkWithUsPage)
+  },
+  {
+    path: '/work-with-us/',
+    handler: () => setPageContent(renderWorkWithUsPage(), initWorkWithUsPage)
+  },
+  {
+    path: '/careers',
+    handler: () => setPageContent(renderWorkWithUsPage(), initWorkWithUsPage)
+  },
+  {
+    path: '/careers/',
+    handler: () => setPageContent(renderWorkWithUsPage(), initWorkWithUsPage)
+  },
+  {
+    path: '/contact',
+    handler: () => setPageContent(renderContactPage(), initContactPage)
+  },
+  {
+    path: '/contact/',
+    handler: () => setPageContent(renderContactPage(), initContactPage)
+  },
+  {
+    path: '/privacy',
+    handler: () => setPageContent(renderLegalPage('privacy'))
+  },
+  {
+    path: '/privacy/',
+    handler: () => setPageContent(renderLegalPage('privacy'))
+  },
+  {
+    path: '/terms',
+    handler: () => setPageContent(renderLegalPage('terms'))
+  },
+  {
+    path: '/terms/',
+    handler: () => setPageContent(renderLegalPage('terms'))
+  }
+], (path) => {
+  setPageContent(renderNotFoundPage(path));
+});
+
+initRouter();

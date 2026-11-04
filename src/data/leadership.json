@@ -1,0 +1,44 @@
+{
+  "boardMembers": [
+    {
+      "id": "vitus-agada",
+      "slug": "vitus-agada",
+      "name": "Pharm. Okechukwu Vitus Agada",
+      "role": "Founder, Managing Director & Chief Executive Officer",
+      "qualifications": "B.Pharm, MPSN, FPCPharm",
+      "type": "executive",
+      "image": "/company_image/pharmacy.jpeg",
+      "bio": "Pharmacist Okechukwu Vitus Agada is the Founder, Managing Director, and CEO of Vitborah Pharmaceutical Company Limited. A registered pharmacist and corporate healthcare strategist with over 20 years of clinical and commercial pharmacy leadership in Nigeria, Pharm. Agada incorporated Vitborah in 2008 with a steadfast commitment to delivering WHO-GMP certified therapeutic medicines and essential dietary supplements to Nigerian healthcare providers, teaching hospitals, and community pharmacies.",
+      "executiveMessage": "Our founding ethos has always been centered on one uncompromising principle: quality without compromise. Across our pharmaceutical therapeutic lines and New AGE wellness portfolios, we ensure that every formulation meets stringent clinical standards and remains accessible to the Nigerian populace.",
+      "tenure": "Since Incorporation (2008)",
+      "committee": "Executive Committee, Clinical Quality & Regulatory Oversight",
+      "verifiedSource": "CAC Registration RC 753571; Pharmacists Council of Nigeria Register"
+    },
+    {
+      "id": "deborah-agada",
+      "slug": "deborah-agada",
+      "name": "Deborah Ukamaka Agada",
+      "role": "Executive Director, Operations & Commercial Strategy",
+      "qualifications": "B.Sc, MBA",
+      "type": "executive",
+      "image": null,
+      "bio": "Deborah Ukamaka Agada serves as Executive Director at Vitborah Pharmaceutical Company Limited. She spearheads operational logistics, financial stewardship, national wholesale distribution networks, and strategic partnerships with tertiary healthcare institutions across Nigeria.",
+      "tenure": "Since Incorporation (2008)",
+      "committee": "Supply Chain & Operations Committee",
+      "verifiedSource": "CAC Registration RC 753571"
+    },
+    {
+      "id": "nnodim-ndubuisi",
+      "slug": "nnodim-ndubuisi",
+      "name": "Nnodim Evan Ndubuisi",
+      "role": "Non-Executive Director / Board Member",
+      "qualifications": "B.Sc, FCA",
+      "type": "non-executive",
+      "image": null,
+      "bio": "Nnodim Evan Ndubuisi is a Non-Executive Director on the Board of Vitborah Pharmaceutical Company Limited. He brings extensive expertise in corporate governance, risk assessment, and financial compliance, advising the board on long-term capital allocation and compliance with statutory frameworks.",
+      "tenure": "Since Incorporation (2008)",
+      "committee": "Audit, Governance & Risk Committee",
+      "verifiedSource": "CAC Registration RC 753571"
+    }
+  ]
+}

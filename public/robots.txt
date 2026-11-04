@@ -1,0 +1,10 @@
+# Vitborah Pharmaceutical Company Limited Robots Configuration
+User-agent: *
+Allow: /
+Allow: /products/
+Allow: /company_image/
+Allow: /products_image/
+Allow: /suppliments_image/
+
+# XML Sitemap Index
+Sitemap: https://vitborahpharm.com/sitemap.xml

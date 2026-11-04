@@ -1,0 +1,55 @@
+[
+  {
+    "id": "lagos-headquarters",
+    "name": "Corporate Headquarters & Main Distribution Hub",
+    "region": "Lagos State (Island / Lekki Corridor)",
+    "address": "No. 2, Olori Kudrat Elegushi Street, Awoyaya, Ibeju Lekki, Lagos, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "info@vitborahpharm.com",
+    "operatingHours": "Monday – Friday: 8:00 AM – 6:00 PM; Saturday: 9:00 AM – 2:00 PM",
+    "services": [
+      "Corporate Executive Offices",
+      "Regulatory Affairs & NAFDAC Liaison",
+      "Cold-Chain & Ambient Central Inventory",
+      "National Hospital & Wholesale Distribution",
+      "Pharmacovigilance & Customer Care"
+    ],
+    "isHeadquarters": true,
+    "coordinates": "6.4800° N, 3.7120° E",
+    "status": "Operational & Active"
+  },
+  {
+    "id": "mushin-distribution-depot",
+    "name": "Central Lagos Mainland Distribution Depot",
+    "region": "Lagos State (Mainland / Commercial Axis)",
+    "address": "36, Layi Oyekanmi Street, Mushin, Lagos, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "distribution@vitborahpharm.com",
+    "operatingHours": "Monday – Friday: 8:30 AM – 5:30 PM; Saturday: 9:00 AM – 1:00 PM",
+    "services": [
+      "Commercial Pharmacy Rapid Order Dispatch",
+      "Community Pharmacy Wholesale Desk",
+      "Regional Buffer Depository",
+      "Trade & Distributor Credit Desk"
+    ],
+    "isHeadquarters": false,
+    "coordinates": "6.5298° N, 3.3541° E",
+    "status": "Operational & Active"
+  },
+  {
+    "id": "abuja-northern-liaison",
+    "name": "Abuja & Northern Region Distribution Liaison",
+    "region": "Federal Capital Territory (Abuja & North Central)",
+    "address": "Central Business District / Garki, Abuja, FCT, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "abuja@vitborahpharm.com",
+    "operatingHours": "Monday – Friday: 8:30 AM – 5:00 PM",
+    "services": [
+      "Federal Teaching Hospital & Institutional Supply",
+      "Northern Nigeria Regional Dispatch Coordination",
+      "Public Health & Tertiary Tenders Coordination"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Distribution Network Hub"
+  }
+]
