@@ -3,6 +3,7 @@ import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { renderProductCarousel, initCarouselListeners } from '../components/ProductCarousel.js';
 import { updateSEO } from '../utils/seo.js';
+import { debounce } from '../utils/domHelpers.js';
 
 let activeCategory = 'All';
 let activeForm = 'All';
@@ -13,7 +14,7 @@ export function renderSupplementsCollectionPage() {
     title: 'New AGE Dietary Supplements Collection | Vitborah Pharmaceuticals',
     description: 'Explore the New AGE nutraceutical collection by Vitborah Pharmaceuticals: Berberine 600mg, Omega-3 Fish Oil, Magnesium Glycinate, Co.Q10, and Probiotics for preventive wellness.',
     canonicalPath: '/products/supplements/',
-    image: '/company_image/new age.jpeg'
+    image: '/company_image/new-age.jpeg'
   });
 
   const categories = [
@@ -193,18 +194,27 @@ export function initSupplementsCollectionPage() {
     }
   };
 
+  const debouncedRefresh = debounce(() => {
+    refreshGrid();
+  }, 180);
+
   const resetAll = () => {
     activeCategory = 'All';
     activeForm = 'All';
     searchQuery = '';
-    const mainEl = document.getElementById('main-content');
-    if (mainEl) mainEl.innerHTML = renderSupplementsCollectionPage();
-    initSupplementsCollectionPage();
+    if (searchInput) searchInput.value = '';
+    catChips?.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-cat') === 'All');
+    });
+    formChips?.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-form') === 'All');
+    });
+    refreshGrid();
   };
 
   searchInput?.addEventListener('input', (e) => {
     searchQuery = e.target.value;
-    refreshGrid();
+    debouncedRefresh();
   });
 
   catChips?.addEventListener('click', (e) => {

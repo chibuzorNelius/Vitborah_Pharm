@@ -76,7 +76,7 @@ export function updateSEO({
     'identifier': 'RC 753571',
     'foundingDate': '2008-06-16',
     'url': PRODUCTION_DOMAIN,
-    'logo': `${PRODUCTION_DOMAIN}/company_image/vitborah logo.jpeg`,
+    'logo': `${PRODUCTION_DOMAIN}/company_image/vitborah-logo.jpeg`,
     'image': `${PRODUCTION_DOMAIN}/company_image/pharmacy.jpeg`,
     'description': 'Licensed Nigerian pharmaceutical company specializing in the distribution and marketing of prescription therapeutic formulations and New AGE dietary supplements.',
     'address': {

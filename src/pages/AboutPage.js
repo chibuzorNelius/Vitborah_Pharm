@@ -1,11 +1,13 @@
 import leadershipData from '../data/leadership.json';
+import branchesData from '../data/branches.json';
 import { icon } from '../utils/icons.js';
 import { updateSEO } from '../utils/seo.js';
+import { initExpandableToggles } from '../utils/domHelpers.js';
 
 export function renderAboutPage() {
   updateSEO({
-    title: 'About Us | Corporate Identity & Heritage | Vitborah Pharmaceuticals',
-    description: 'Discover Vitborah Pharmaceutical Company Limited (RC 753571, Incorporated 2008). 16+ years of clinical excellence, WHO-GMP partnerships, and nationwide healthcare distribution in Nigeria.',
+    title: 'About Us | Corporate Identity, Board & Nationwide Network | Vitborah Pharmaceuticals',
+    description: 'Discover Vitborah Pharmaceutical Company Limited (RC 753571, Incorporated 2008). 16+ years of clinical excellence, executive board leadership, and distribution hubs across Nigeria.',
     canonicalPath: '/about/',
     image: '/company_image/pharmacy.jpeg'
   });
@@ -14,38 +16,40 @@ export function renderAboutPage() {
     {
       year: '2008',
       title: 'Corporate Incorporation (RC: 753571)',
-      desc: 'Officially incorporated on June 16, 2008 by the Corporate Affairs Commission (CAC) in Lagos, Nigeria, establishing operations focused on ethical pharmaceutical importation, distribution, and clinical advocacy.'
+      desc: 'Officially incorporated on June 16, 2008 by the Corporate Affairs Commission (CAC) in Lagos, Nigeria, establishing ethical pharmaceutical importation and distribution.'
     },
     {
       year: '2012',
       title: 'Therapeutic Portfolio Expansion',
-      desc: 'Secured landmark NAFDAC product registrations across essential antibacterial and antimalarial categories, including Boraflox 500 Ciprofloxacin and Staxim Cefuroxime tablets.'
+      desc: 'Secured landmark NAFDAC product registrations across essential antibacterial and antimalarial categories including Boraflox 500 Ciprofloxacin and Staxim Cefuroxime.'
     },
     {
       year: '2017',
       title: 'Hospital Sterile Injectable Line',
-      desc: 'Partnered with international WHO-GMP manufacturing plants to introduce Boracef Ceftriaxone 1g and Vitboter Artemether injectables for tertiary hospital intensive care in Nigeria.'
+      desc: 'Partnered with international WHO-GMP manufacturing plants to introduce Boracef Ceftriaxone 1g and Vitboter Artemether injectables for intensive clinical care.'
     },
     {
       year: '2021',
       title: 'Ibeju-Lekki Central Warehousing Hub',
-      desc: 'Commissioned expanded central warehousing facilities at No. 2, Olori Kudrat Elegushi Street, Awoyaya, Ibeju-Lekki, enhancing nationwide distribution throughput and cold-chain capacity.'
+      desc: 'Commissioned expanded central warehousing at No. 2, Olori Kudrat Elegushi Street, Awoyaya, Ibeju-Lekki, boosting cold-chain capacity.'
     },
     {
       year: '2024',
       title: 'Formalization of Vitborah Foundation',
-      desc: 'Formalized corporate social responsibility outreach into the Vitborah Foundation, delivering free community health screenings, diagnostic testing, and essential treatments to underserved populations.'
+      desc: 'Formalized corporate social responsibility outreach into the Vitborah Foundation, delivering free community health screenings and essential treatments.'
     },
     {
       year: '2026',
       title: 'New AGE Nutraceutical Portfolio Launch',
-      desc: 'Unveiled the New AGE dietary supplement line, providing Nigerian consumers and clinicians with premium NAFDAC-certified formulations including Berberine 600mg, Omega-3, and Magnesium Glycinate.'
+      desc: 'Unveiled the New AGE dietary supplement line, providing certified formulations including Berberine 600mg, Omega-3, and Magnesium Glycinate.'
     }
   ];
 
+  const { boardMembers } = leadershipData;
+
   return `
     <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 4rem 0 4.5rem;">
+    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 3.5rem 0 3.75rem;">
       <div class="container">
         <div class="breadcrumbs" style="color: #a7f3d0;">
           <a href="/" style="color: #a7f3d0;">Home</a>
@@ -54,112 +58,126 @@ export function renderAboutPage() {
         </div>
 
         <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
-          Our Corporate Heritage
+          Our Corporate Heritage & Operations
         </span>
-        <h1 style="color: #ffffff; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem;">
+        <h1 style="color: #ffffff; font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 0.75rem;">
           Committed to Clinical Excellence & Healthcare Access in Nigeria
         </h1>
-        <p style="color: #d1fae5; font-size: 1.15rem; max-width: 780px; line-height: 1.65; margin: 0;">
-          Since 2008, Vitborah Pharmaceutical Company Limited has bridged the gap between global pharmaceutical innovation and local clinical needs, providing trusted medicines and proactive wellness formulations nationwide.
+        <p style="color: #d1fae5; font-size: 1.05rem; max-width: 760px; line-height: 1.6; margin: 0 0 1.5rem 0;">
+          Since 2008, Vitborah Pharmaceutical Company Limited (RC: 753571) has connected international pharmaceutical manufacturing standards with Nigerian clinical needs, supplying verified prescription medicines and nutritional supplements nationwide.
         </p>
+
+        <!-- Quick Anchor Jump Bar -->
+        <div class="about-anchor-bar">
+          <a href="#overview" class="anchor-chip">Overview</a>
+          <a href="#principles" class="anchor-chip">Mission & Values</a>
+          <a href="#timeline" class="anchor-chip">16-Year Heritage</a>
+          <a href="#leadership" class="anchor-chip">Board & Leadership</a>
+          <a href="#branches" class="anchor-chip">Branches & Depots</a>
+        </div>
       </div>
     </div>
 
-    <!-- Company Overview -->
-    <section class="section">
+    <!-- Section 1: Company Overview -->
+    <section class="section" id="overview">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr; gap: 3.5rem; align-items: center;" class="hero-grid">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;" class="hero-grid">
           <div>
             <span class="section-tag">Who We Are</span>
-            <h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">
+            <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem;">
               A Licensed, Registered Force in Nigerian Healthcare
             </h2>
-            <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.7; margin-bottom: 1rem;">
-              <strong>Vitborah Pharmaceutical Company Limited</strong> is a fully incorporated Nigerian healthcare enterprise (CAC Registration RC: 753571). We specialize in the importation, registration, marketing, and distribution of verified pharmaceutical formulations and dietary supplements.
-            </p>
-            <p style="font-size: 1rem; color: var(--color-text-muted); line-height: 1.65; margin-bottom: 1.5rem;">
-              With executive headquarters located along the Lekki-Epe expressway corridor in Awoyaya, Lagos, and primary distribution depots in Mushin and liaison hubs in Abuja, Vitborah serves hundreds of teaching hospitals, specialized clinics, pharmaceutical wholesalers, and community dispensaries across all geopolitical zones of Nigeria.
+            <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.65; margin-bottom: 1rem;">
+              <strong>Vitborah Pharmaceutical Company Limited</strong> is a fully incorporated Nigerian healthcare enterprise (CAC Registration RC: 753571, incorporated June 16, 2008). We specialize in the importation, registration, marketing, and distribution of verified pharmaceutical formulations and dietary supplements.
             </p>
 
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 2rem;">
-              <div style="background-color: var(--color-bg-subtle); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.35rem;">16+</div>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted);">Years in Continuous Operation (Since 2008)</div>
-              </div>
-              <div style="background-color: var(--color-bg-subtle); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.35rem;">100%</div>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted);">NAFDAC Compliant Portfolio</div>
-              </div>
+            <div id="overview-extended" class="mobile-expandable-content">
+              <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1rem;">
+                Operating executive headquarters along the Lekki-Epe expressway corridor in Awoyaya, Lagos, with rapid distribution depots in Mushin and institutional representation in Abuja, Vitborah serves hundreds of teaching hospitals, clinical consortiums, and community pharmacies across all 36 states and the FCT.
+              </p>
+              <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1rem;">
+                Every batch imported under our stewardship is subject to verified certificates of analysis (CoA), temperature-controlled cold-chain logistics, and full NAFDAC compliance.
+              </p>
             </div>
 
-            <a href="/leadership/" class="btn btn-primary">
-              Meet Our Executive Leadership ${icon('arrowRight', 'w-4 h-4')}
-            </a>
+            <button type="button" class="btn btn-outline btn-sm mobile-expand-btn" data-toggle-expand="overview-extended" data-more-text="Read Full Overview" data-less-text="Show Less">
+              Read Full Overview
+            </button>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem; margin-bottom: 1.5rem;">
+              <div style="background-color: var(--color-bg-subtle); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                <div style="font-family: var(--font-heading); font-size: 1.65rem; font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.25rem;">16+</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-muted);">Years Continuous Operation</div>
+              </div>
+              <div style="background-color: var(--color-bg-subtle); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                <div style="font-family: var(--font-heading); font-size: 1.65rem; font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.25rem;">100%</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-muted);">NAFDAC Verified Portfolio</div>
+              </div>
+            </div>
           </div>
 
-          <div style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid var(--color-border);">
-            <img src="/company_image/pharmacy.jpeg" alt="Vitborah Clinical Operations" style="width: 100%; height: 440px; object-fit: cover;" />
+          <div class="responsive-img-frame" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);">
+            <img src="/company_image/pharmacy.jpeg" alt="Vitborah Clinical Operations" style="width: 100%; max-height: 380px; object-fit: cover;" loading="lazy" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Mission, Vision & Values -->
-    <section class="section section-alt">
+    <!-- Section 2: Mission, Vision & Values -->
+    <section class="section section-alt" id="principles">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Core Principles</span>
-          <h2 class="section-title">Mission, Vision & Institutional Values</h2>
+          <span class="section-tag">Institutional Principles</span>
+          <h2 class="section-title">Mission, Vision & Core Values</h2>
           <p class="section-desc">
             The ethical bedrock that shapes every batch import, quality control test, and distribution relationship.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.75rem;">
-          <div class="card" style="padding: 2.25rem; border-top: 4px solid var(--color-primary);">
-            <div style="width: 3rem; height: 3rem; border-radius: var(--radius-md); background: var(--color-primary-surface); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
-              ${icon('award', 'w-6 h-6')}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div class="card" style="padding: 1.75rem; border-top: 4px solid var(--color-primary);">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: var(--radius-md); background: var(--color-primary-surface); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              ${icon('award', 'w-5 h-5')}
             </div>
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Our Mission</h3>
-            <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6;">
-              To provide Nigerian clinicians, hospitals, and communities with premium, WHO-GMP certified therapeutic medicines and evidence-based nutraceuticals that guarantee safety, efficacy, and genuine affordability.
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Our Mission</h3>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6;">
+              To provide Nigerian clinicians, hospitals, and communities with premium, WHO-GMP certified therapeutic medicines and evidence-based nutraceuticals that guarantee safety, clinical efficacy, and genuine affordability.
             </p>
           </div>
 
-          <div class="card" style="padding: 2.25rem; border-top: 4px solid var(--color-accent);">
-            <div style="width: 3rem; height: 3rem; border-radius: var(--radius-md); background: #fef2f2; color: var(--color-accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
-              ${icon('shieldCheck', 'w-6 h-6')}
+          <div class="card" style="padding: 1.75rem; border-top: 4px solid var(--color-accent);">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: var(--radius-md); background: #fef2f2; color: var(--color-accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              ${icon('shieldCheck', 'w-5 h-5')}
             </div>
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Our Vision</h3>
-            <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6;">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Our Vision</h3>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6;">
               To be West Africa's most respected pharmaceutical brand, recognized for uncompromising quality assurance, supply chain reliability, and philanthropic community healthcare transformation.
             </p>
           </div>
 
-          <div class="card" style="padding: 2.25rem; border-top: 4px solid #1d4ed8;">
-            <div style="width: 3rem; height: 3rem; border-radius: var(--radius-md); background: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
-              ${icon('heartPulse', 'w-6 h-6')}
+          <div class="card" style="padding: 1.75rem; border-top: 4px solid #1d4ed8;">
+            <div style="width: 2.75rem; height: 2.75rem; border-radius: var(--radius-md); background: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              ${icon('heartPulse', 'w-5 h-5')}
             </div>
-            <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem;">Core Values</h3>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--color-text-muted);">
-              <li><strong style="color: var(--color-text-main);">• Clinical Integrity:</strong> Zero tolerance for sub-potent drugs.</li>
-              <li><strong style="color: var(--color-text-main);">• Regulatory Compliance:</strong> Strict NAFDAC adherence.</li>
-              <li><strong style="color: var(--color-text-main);">• Supply Reliability:</strong> Cold-chain security and rapid dispatch.</li>
-              <li><strong style="color: var(--color-text-main);">• Compassion:</strong> Free community outreach through our Foundation.</li>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Core Values</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.875rem; color: var(--color-text-muted);">
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Clinical Integrity:</strong> Absolute zero tolerance for sub-potent or unverified medicines.</li>
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Strict Compliance:</strong> 100% adherence to PCN and NAFDAC statutory regulations.</li>
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Cold-Chain Care:</strong> Meticulous temperature monitoring for delicate formulations.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Company History & Timeline -->
-    <section class="section">
+    <!-- Section 3: Company Timeline -->
+    <section class="section" id="timeline">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Historical Milestones</span>
           <h2 class="section-title">Our Growth & Heritage Timeline</h2>
           <p class="section-desc">
-            Documented progression from our founding in 2008 to today's multi-depot national healthcare distribution network.
+            Documented progression from our founding in 2008 to today's multi-depot national distribution network.
           </p>
         </div>
 
@@ -167,59 +185,158 @@ export function renderAboutPage() {
           <!-- Timeline Vertical Line -->
           <div style="position: absolute; left: 1.25rem; top: 1rem; bottom: 1rem; width: 2px; background: var(--color-border);"></div>
 
-          <div style="display: flex; flex-direction: column; gap: 2.5rem;">
-            ${milestones.map((m, idx) => `
-              <div style="display: flex; gap: 2rem; position: relative;">
+          <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+            ${milestones.slice(0, 3).map((m, idx) => `
+              <div style="display: flex; gap: 1.5rem; position: relative;">
                 <div style="width: 2.5rem; height: 2.5rem; border-radius: var(--radius-full); background: var(--color-primary); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 0 0 4px #ffffff; z-index: 2;">
                   ${idx + 1}
                 </div>
-                <div class="card" style="padding: 1.75rem; flex-grow: 1; background: #ffffff;">
-                  <span class="badge badge-green" style="margin-bottom: 0.5rem;">${m.year}</span>
-                  <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--color-text-main);">${m.title}</h3>
-                  <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.55; margin: 0;">${m.desc}</p>
+                <div class="card" style="padding: 1.25rem; flex-grow: 1; background: #ffffff;">
+                  <span class="badge badge-green" style="margin-bottom: 0.35rem;">${m.year}</span>
+                  <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--color-text-main);">${m.title}</h3>
+                  <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">${m.desc}</p>
                 </div>
               </div>
             `).join('')}
+
+            <div id="timeline-extended" class="mobile-expandable-content" style="display: flex; flex-direction: column; gap: 1.75rem;">
+              ${milestones.slice(3).map((m, idx) => `
+                <div style="display: flex; gap: 1.5rem; position: relative;">
+                  <div style="width: 2.5rem; height: 2.5rem; border-radius: var(--radius-full); background: var(--color-primary); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 0 0 4px #ffffff; z-index: 2;">
+                    ${idx + 4}
+                  </div>
+                  <div class="card" style="padding: 1.25rem; flex-grow: 1; background: #ffffff;">
+                    <span class="badge badge-green" style="margin-bottom: 0.35rem;">${m.year}</span>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--color-text-main);">${m.title}</h3>
+                    <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">${m.desc}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="text-align: center; margin-top: 0.5rem;">
+              <button type="button" class="btn btn-outline btn-sm mobile-expand-btn" data-toggle-expand="timeline-extended" data-more-text="View Complete 16-Year Timeline" data-less-text="Show Fewer Milestones">
+                View Complete 16-Year Timeline
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Quality Assurance & Standards -->
-    <section class="section section-alt">
+    <!-- Section 4: Board of Directors & Leadership (Packed into About Us) -->
+    <section class="section section-alt" id="leadership">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Quality Assurance</span>
-          <h2 class="section-title">Stringent Pharmaceutical Governance</h2>
+          <span class="badge badge-green" style="margin-bottom: 0.5rem;">Corporate Governance</span>
+          <h2 class="section-title">Board of Directors & Leadership</h2>
           <p class="section-desc">
-            Every product distributed by Vitborah is subjected to multi-tiered quality control checks.
+            Experienced pharmaceutical and executive governance steering clinical integrity, regulatory compliance, and nationwide distribution.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('shieldCheck', 'w-8 h-8')}</div>
-            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;">WHO-GMP Partner Auditing</h4>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              We partner exclusively with manufacturers certified under World Health Organization Good Manufacturing Practices (WHO-GMP), ensuring sterile batch lyophilization and cleanroom standards.
-            </p>
-          </div>
+        <div style="display: flex; flex-direction: column; gap: 1.75rem; max-width: 960px; margin: 0 auto;">
+          ${boardMembers.map(member => `
+            <article class="card leadership-card" style="padding: 1.75rem; border-left: 5px solid var(--color-primary);">
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                <span class="badge ${member.type === 'executive' ? 'badge-green' : 'badge-neutral'}">
+                  ${member.type === 'executive' ? 'Executive Director' : 'Non-Executive Director'}
+                </span>
+                <span class="badge badge-neutral">${member.tenure}</span>
+              </div>
 
-          <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('award', 'w-8 h-8')}</div>
-            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;">NAFDAC Product Registration</h4>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              Full compliance with the National Agency for Food and Drug Administration and Control. All products undergo laboratory verification, certificates of analysis (CoA) checks, and post-market surveillance.
-            </p>
-          </div>
+              <h3 style="font-size: 1.45rem; margin-bottom: 0.2rem; color: var(--color-text-main);">
+                ${member.name}
+              </h3>
 
-          <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('clock', 'w-8 h-8')}</div>
-            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Cold-Chain Monitoring</h4>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              Dedicated climate-monitored holding rooms at our Awoyaya central depot safeguard thermal-sensitive injectables and live bacterial probiotic strains against tropical heat degradation.
-            </p>
-          </div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.85rem;">
+                ${member.role}
+              </div>
+
+              <p style="font-size: 0.95rem; color: var(--color-text-body); line-height: 1.6; margin-bottom: 1rem;">
+                ${member.bio}
+              </p>
+
+              ${member.committee ? `
+                <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-sm); padding: 0.65rem 1rem; font-size: 0.825rem; color: var(--color-text-muted); margin-bottom: 1rem; border: 1px solid var(--color-border-subtle);">
+                  <strong>Board Committee Assignment:</strong> ${member.committee}
+                </div>
+              ` : ''}
+
+              ${member.id === 'vitus-agada' ? `
+                <div>
+                  <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm">
+                    Read Detailed CEO Message & Qualifications ${icon('arrowRight', 'w-3.5 h-3.5')}
+                  </a>
+                </div>
+              ` : ''}
+            </article>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Operational Branches & Depots (Packed into About Us) -->
+    <section class="section" id="branches">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge badge-blue" style="margin-bottom: 0.5rem;">Supply Infrastructure</span>
+          <h2 class="section-title">Operational Branches & Distribution Hubs</h2>
+          <p class="section-desc">
+            Strategically placed warehousing and rapid-dispatch points ensuring consistent stock and cold-chain security across Nigeria.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; max-width: 1040px; margin: 0 auto;">
+          ${branchesData.map(branch => `
+            <div class="card branch-card" style="padding: 1.75rem; display: flex; flex-direction: column; border-top: 4px solid ${branch.isHeadquarters ? 'var(--color-primary)' : '#0284c7'};">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <span class="badge ${branch.isHeadquarters ? 'badge-green' : 'badge-blue'}">
+                  ${branch.isHeadquarters ? 'National Headquarters' : 'Distribution Depot'}
+                </span>
+                <span class="badge badge-neutral">${branch.status}</span>
+              </div>
+
+              <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem; color: var(--color-text-main);">
+                ${branch.name}
+              </h3>
+              <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1rem;">
+                ${branch.region}
+              </div>
+
+              <div style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1;">
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: flex-start;">
+                  <span style="color: var(--color-primary); margin-top: 2px;">${icon('mapPin', 'w-4 h-4')}</span>
+                  <span>${branch.address}</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
+                  <span style="color: var(--color-primary);">${icon('clock', 'w-4 h-4')}</span>
+                  <span>${branch.operatingHours}</span>
+                </div>
+              </div>
+
+              <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-sm); padding: 0.85rem; border: 1px solid var(--color-border-subtle); margin-bottom: 1rem; font-size: 0.825rem;">
+                <strong style="color: var(--color-text-main); display: block; margin-bottom: 0.35rem;">Hub Capabilities:</strong>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; color: var(--color-text-muted);">
+                  ${branch.services.slice(0, 3).map(s => `
+                    <li style="display: flex; align-items: center; gap: 0.35rem;">
+                      <span style="color: var(--color-primary);">${icon('check', 'w-3.5 h-3.5')}</span>
+                      <span>${s}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; font-size: 0.85rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border);">
+                <a href="tel:${branch.phone.replace(/[^0-9+]/g, '')}" class="btn btn-outline btn-sm" style="flex: 1; justify-content: center; min-width: 130px;">
+                  ${icon('phone', 'w-3.5 h-3.5')} Call Hub
+                </a>
+                <a href="mailto:${branch.email}" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center; min-width: 130px;">
+                  ${icon('mail', 'w-3.5 h-3.5')} Email
+                </a>
+              </div>
+            </div>
+          `).join('')}
         </div>
       </div>
     </section>
@@ -227,19 +344,23 @@ export function renderAboutPage() {
     <!-- Navigation CTA Bar -->
     <div style="background-color: #074824; color: #ffffff; padding: 3rem 0; text-align: center;">
       <div class="container" style="max-width: 720px;">
-        <h3 style="color: #ffffff; font-size: 1.85rem; margin-bottom: 0.75rem;">Ready to Collaborate With Vitborah?</h3>
-        <p style="color: #d1fae5; font-size: 1rem; margin-bottom: 1.5rem;">
-          Connect with our corporate team for wholesale orders, hospital supply contracts, or community health partnerships.
+        <h3 style="color: #ffffff; font-size: 1.75rem; margin-bottom: 0.75rem;">Partner With Vitborah Pharmaceuticals</h3>
+        <p style="color: #d1fae5; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          Connect directly with our headquarters or depot dispatch managers for hospital supply contracts, certified distribution, or institutional healthcare partnership.
         </p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <a href="/products/therapeutic/" class="btn btn-primary" style="background: #ffffff; color: var(--color-primary-dark) !important; font-weight: 700;">
             Browse Medicine Catalog
           </a>
           <a href="/contact/" class="btn btn-outline" style="border-color: #ffffff; color: #ffffff !important;">
-            Contact Corporate Office
+            Contact Headquarters
           </a>
         </div>
       </div>
     </div>
   `;
+}
+
+export function initAboutPage() {
+  initExpandableToggles();
 }

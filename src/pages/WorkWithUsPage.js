@@ -204,13 +204,16 @@ export function initWorkWithUsPage() {
             <p style="font-size: 0.95rem; margin-bottom: 1rem;">
               Thank you, <strong>${nameInput.value}</strong>. Your expression of interest for the <strong>${roleInput.value}</strong> position has been successfully recorded in the talent registry.
             </p>
-            <div style="background: rgba(255, 255, 255, 0.7); padding: 1rem; border-radius: var(--radius-sm); border: 1px dashed #86efac; font-size: 0.85rem; color: #14532d;">
-              <strong>Next Step for Complete Candidacy:</strong><br />
-              Please email your detailed Curriculum Vitae (CV) and professional credentials directly to our HR recruitment desk at: 
-              <a href="mailto:info@vitborahpharm.com?subject=Job%20Application%20Ref:%20${refNum}%20-%20${encodeURIComponent(nameInput.value)}" style="font-weight: 700; text-decoration: underline; color: #166534;">
-                info@vitborahpharm.com
-              </a> 
-              quoting Reference Number <strong>${refNum}</strong> in the subject line.
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
+              <a href="mailto:info@vitborahpharm.com?subject=Job%20Application%20Ref:%20${refNum}%20-%20${encodeURIComponent(nameInput.value)}&body=${encodeURIComponent(`Candidate: ${nameInput.value}\nPhone: ${phoneInput.value}\nRole: ${roleInput.value}\nSummary: ${expInput.value}`)}" class="btn btn-primary" style="justify-content: center; gap: 0.5rem;">
+                ${icon('mail', 'w-4 h-4')} Email CV to HR Desk (Ref: ${refNum})
+              </a>
+              <a href="https://wa.me/2348063022165?text=${encodeURIComponent(`Hello Vitborah HR Recruitment,\n\nI have submitted my job candidacy:\n- Reference: ${refNum}\n- Name: ${nameInput.value}\n- Position: ${roleInput.value}\n- Phone: ${phoneInput.value}`)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content: center; gap: 0.5rem;">
+                ${icon('phone', 'w-4 h-4')} Message HR on WhatsApp
+              </a>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.7); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px dashed #86efac; font-size: 0.825rem; color: #14532d;">
+              Please remember to attach your detailed Curriculum Vitae (CV) referencing Application ID <strong>${refNum}</strong>.
             </div>
           </div>
         `;

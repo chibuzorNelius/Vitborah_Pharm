@@ -43,7 +43,7 @@ export function renderArticleDetailPage(params) {
         'name': 'Vitborah Pharmaceutical Company Limited',
         'logo': {
           '@type': 'ImageObject',
-          'url': 'https://vitborahpharm.com/company_image/vitborah logo.jpeg'
+          'url': 'https://vitborahpharm.com/company_image/vitborah-logo.jpeg'
         }
       },
       'description': article.summary

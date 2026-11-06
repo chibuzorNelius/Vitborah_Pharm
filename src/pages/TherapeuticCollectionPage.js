@@ -3,6 +3,7 @@ import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { renderProductCarousel, initCarouselListeners } from '../components/ProductCarousel.js';
 import { updateSEO } from '../utils/seo.js';
+import { debounce } from '../utils/domHelpers.js';
 
 let activeCategory = 'All';
 let activeForm = 'All';
@@ -192,18 +193,27 @@ export function initTherapeuticCollectionPage() {
     }
   };
 
+  const debouncedRefresh = debounce(() => {
+    refreshGrid();
+  }, 180);
+
   const resetAll = () => {
     activeCategory = 'All';
     activeForm = 'All';
     searchQuery = '';
-    const mainEl = document.getElementById('main-content');
-    if (mainEl) mainEl.innerHTML = renderTherapeuticCollectionPage();
-    initTherapeuticCollectionPage();
+    if (searchInput) searchInput.value = '';
+    catChips?.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-cat') === 'All');
+    });
+    formChips?.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.getAttribute('data-form') === 'All');
+    });
+    refreshGrid();
   };
 
   searchInput?.addEventListener('input', (e) => {
     searchQuery = e.target.value;
-    refreshGrid();
+    debouncedRefresh();
   });
 
   catChips?.addEventListener('click', (e) => {

@@ -56,7 +56,7 @@ function renderCurrentSlide(product) {
         <img 
           src="${product.imagePath}" 
           alt="${product.name} Packaging - Vitborah Pharmaceuticals"
-          onerror="this.src='/company_image/vitborah logo.jpeg';"
+          onerror="this.src='/company_image/vitborah-logo.jpeg';"
         />
       </div>
 

@@ -8,7 +8,7 @@ export function renderFooter() {
           <!-- Col 1: Identity & Credentials -->
           <div>
             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
-              <img src="/company_image/vitborah logo.jpeg" alt="Vitborah Logo" style="height: 2.75rem; border-radius: 4px; background: #fff; padding: 2px;" />
+              <img src="/company_image/vitborah-logo.jpeg" alt="Vitborah Logo" style="height: 2.75rem; border-radius: 4px; background: #fff; padding: 2px;" />
               <div>
                 <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem; color: #ffffff; letter-spacing: -0.01em; display: block; line-height: 1;">VITBORAH</span>
                 <span style="font-size: 0.75rem; color: #a7f3d0; text-transform: uppercase; letter-spacing: 0.08em;">Pharmaceutical Company Ltd.</span>
@@ -33,13 +33,14 @@ export function renderFooter() {
             <ul class="footer-links">
               <li><a href="/">Corporate Home</a></li>
               <li><a href="/about/">About Vitborah</a></li>
-              <li><a href="/leadership/">Board of Directors</a></li>
+              <li><a href="/about#leadership">Board of Directors</a></li>
+              <li><a href="/about#branches">Branches & Depots</a></li>
               <li><a href="/leadership/vitus-agada/">CEO Profile</a></li>
-              <li><a href="/branches/">Branches & Depots</a></li>
               <li><a href="/charity/">Vitborah Foundation</a></li>
               <li><a href="/news/">News & Announcements</a></li>
               <li><a href="/partners/">Our Partners</a></li>
               <li><a href="/work-with-us/">Careers / Work With Us</a></li>
+              <li><a href="/contact/">Contact Headquarters</a></li>
             </ul>
           </div>
 

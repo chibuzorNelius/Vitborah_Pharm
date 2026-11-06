@@ -17,7 +17,7 @@ export function renderProductCard(product, isSupplement = false) {
           alt="${product.name} Packaging - Vitborah Pharmaceuticals" 
           class="product-card-img" 
           loading="lazy"
-          onerror="this.src='/company_image/vitborah logo.jpeg'; this.style.objectFit='contain';"
+          onerror="this.src='/company_image/vitborah-logo.jpeg'; this.style.objectFit='contain';"
         />
       </div>
 

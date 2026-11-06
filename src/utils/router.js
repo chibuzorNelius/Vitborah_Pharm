@@ -1,4 +1,5 @@
 // Client-Side PushState Router for Vitborah Pharmaceuticals
+import { stopAutoPlay } from '../components/ProductCarousel.js';
 
 let routes = [];
 let notFoundHandler = null;
@@ -24,6 +25,9 @@ export function navigate(url, replace = false) {
 }
 
 export function handleRoute() {
+  // Always stop running background carousel timers on route change
+  stopAutoPlay();
+
   const path = window.location.pathname;
   currentPath = path;
 
@@ -33,18 +37,34 @@ export function handleRoute() {
   for (const route of routes) {
     const match = matchRoute(route.path, normalizedPath);
     if (match) {
-      window.scrollTo(0, 0);
       route.handler(match.params);
       updateActiveNavLinks(path);
+      handleScrollPosition();
       return;
     }
   }
 
   // Not found
   if (notFoundHandler) {
-    window.scrollTo(0, 0);
     notFoundHandler(path);
     updateActiveNavLinks(path);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+}
+
+function handleScrollPosition() {
+  if (window.location.hash) {
+    const hash = window.location.hash;
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, 50);
+  } else {
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 }
 
@@ -81,7 +101,7 @@ export function initRouter() {
     const href = anchor.getAttribute('href');
     if (!href) return;
 
-    // Ignore external links, mailto, tel, hashes
+    // Ignore external links, mailto, tel
     if (
       href.startsWith('http') ||
       href.startsWith('mailto:') ||
@@ -93,7 +113,7 @@ export function initRouter() {
     }
 
     if (href.startsWith('#')) {
-      return; // allow smooth anchor scrolling
+      return; // allow smooth anchor scrolling on same page
     }
 
     if (href.startsWith('/')) {
@@ -114,7 +134,9 @@ export function initRouter() {
 function updateActiveNavLinks(currentPath) {
   document.querySelectorAll('a[data-nav-link]').forEach((link) => {
     const href = link.getAttribute('href');
-    const isActive = href === currentPath || (href !== '/' && currentPath.startsWith(href));
+    const cleanHref = href?.replace(/\/$/, '') || '';
+    const cleanCurrent = currentPath.replace(/\/$/, '') || '';
+    const isActive = cleanHref === cleanCurrent || (cleanHref !== '' && cleanCurrent.startsWith(cleanHref));
     if (isActive) {
       link.classList.add('nav-active');
       link.setAttribute('aria-current', 'page');

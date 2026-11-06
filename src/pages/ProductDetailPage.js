@@ -3,16 +3,19 @@ import supplements from '../data/supplements.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { updateSEO } from '../utils/seo.js';
+import { escapeHTML } from '../utils/security.js';
+import { initExpandableToggles } from '../utils/domHelpers.js';
 
 export function renderProductDetailPage(params) {
-  const slug = params?.slug;
+  const rawSlug = params?.slug || '';
+  const safeSlug = escapeHTML(rawSlug);
 
   // Search in therapeutics and supplements
-  const therapeuticMatch = therapeuticProducts.find(p => p.id === slug);
-  const supplementMatch = supplements.find(s => s.id === slug);
+  const therapeuticMatch = therapeuticProducts.find(p => p.id === rawSlug);
+  const supplementMatch = supplements.find(s => s.id === rawSlug);
 
   if (!therapeuticMatch && !supplementMatch) {
-    return renderProductNotFound(slug);
+    return renderProductNotFound(safeSlug);
   }
 
   const isSupplement = !!supplementMatch;
@@ -44,16 +47,21 @@ export function renderProductDetailPage(params) {
     }
   });
 
-  // Related products from same category or collection
+  // Accurate related products matching same category (fixed from previous || true bug)
   const allInCollection = isSupplement ? supplements : therapeuticProducts;
-  const relatedProducts = allInCollection
-    .filter(p => p.id !== product.id)
-    .filter(p => (isSupplement ? p.category === product.category : p.therapeuticCategory === product.therapeuticCategory) || true)
-    .slice(0, 3);
+  const sameCategoryProducts = allInCollection.filter(
+    p => p.id !== product.id && (isSupplement ? p.category === product.category : p.therapeuticCategory === product.therapeuticCategory)
+  );
+
+  // If fewer than 3 in same category, supplement with other items from the collection
+  const otherProducts = allInCollection.filter(
+    p => p.id !== product.id && !sameCategoryProducts.some(sc => sc.id === p.id)
+  );
+  const relatedProducts = [...sameCategoryProducts, ...otherProducts].slice(0, 3);
 
   return `
     <!-- Top Breadcrumb Bar -->
-    <div style="background-color: var(--color-bg-subtle); border-bottom: 1px solid var(--color-border); padding: 1.25rem 0;">
+    <div style="background-color: var(--color-bg-subtle); border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
       <div class="container">
         <div class="breadcrumbs" style="margin: 0;">
           <a href="/">Home</a>
@@ -66,34 +74,35 @@ export function renderProductDetailPage(params) {
     </div>
 
     <!-- Main Product Detail View -->
-    <section class="section" style="padding-top: 3.5rem;">
+    <section class="section" style="padding-top: 2.5rem; padding-bottom: 3.5rem;">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr; gap: 3.5rem; margin-bottom: 4.5rem;" class="hero-grid">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3.5rem;" class="hero-grid">
           
-          <!-- Left: High-Res Packaging Photo -->
+          <!-- Left: High-Res Packaging Photo (Responsive for Mobile) -->
           <div>
-            <div style="background: radial-gradient(circle, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 2.5rem; display: flex; align-items: center; justify-content: center; position: relative; min-height: 420px; box-shadow: var(--shadow-md);">
-              <span class="badge ${isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green')}" style="position: absolute; top: 1.25rem; left: 1.25rem; font-size: 0.8rem; padding: 0.4rem 0.85rem;">
-                ${isPrescription ? 'Prescription Only (Rx)' : (isSupplement ? 'New AGE Dietary Supplement' : 'Therapeutic Formulation')}
+            <div class="product-detail-img-card" style="background: radial-gradient(circle, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; align-items: center; justify-content: center; position: relative; min-height: 320px; box-shadow: var(--shadow-sm);">
+              <span class="badge ${isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green')}" style="position: absolute; top: 1rem; left: 1rem; font-size: 0.775rem; padding: 0.35rem 0.75rem;">
+                ${isPrescription ? 'Prescription Only (Rx)' : (isSupplement ? 'Dietary Supplement' : 'Therapeutic Formulation')}
               </span>
 
               <img 
                 src="${product.imagePath}" 
                 alt="${product.name} Official Packaging" 
-                style="max-width: 100%; max-height: 380px; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.12));"
-                onerror="this.src='/company_image/vitborah logo.jpeg';"
+                class="product-detail-hero-img"
+                style="max-width: 100%; max-height: 340px; object-fit: contain; filter: drop-shadow(0 12px 20px rgba(0,0,0,0.1));"
+                onerror="this.src='/company_image/vitborah-logo.jpeg';"
               />
             </div>
 
             <!-- Authentic Tamper & Storage Seals -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
-              <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.85rem; display: flex; align-items: center; gap: 0.65rem; font-size: 0.825rem;">
-                <span style="color: var(--color-primary);">${icon('shieldCheck', 'w-5 h-5')}</span>
-                <span>Tamper-Evident Packaging Verification</span>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 0.75rem;">
+              <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem;">
+                <span style="color: var(--color-primary); flex-shrink: 0;">${icon('shieldCheck', 'w-4 h-4')}</span>
+                <span>Tamper-Evident Verification</span>
               </div>
-              <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.85rem; display: flex; align-items: center; gap: 0.65rem; font-size: 0.825rem;">
-                <span style="color: var(--color-primary);">${icon('clock', 'w-5 h-5')}</span>
-                <span>Store Below 30°C in Dry Conditions</span>
+              <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem;">
+                <span style="color: var(--color-primary); flex-shrink: 0;">${icon('clock', 'w-4 h-4')}</span>
+                <span>Store Below 30°C</span>
               </div>
             </div>
           </div>
@@ -106,34 +115,34 @@ export function renderProductDetailPage(params) {
               <span class="badge badge-neutral">${product.brand || 'Vitborah'}</span>
             </div>
 
-            <h1 style="font-size: clamp(2rem, 3.5vw, 2.75rem); line-height: 1.2; margin-bottom: 1rem; color: var(--color-text-main);">
+            <h1 style="font-size: clamp(1.85rem, 3.5vw, 2.5rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--color-text-main);">
               ${product.name}
             </h1>
 
-            <p style="font-size: 1.1rem; color: var(--color-text-body); line-height: 1.65; margin-bottom: 1.75rem;">
+            <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.6; margin-bottom: 1.25rem;">
               ${product.description || product.shortDescription}
             </p>
 
             <!-- Specification Attributes Grid -->
-            <div style="background-color: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 2rem;">
-              <h3 style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: 1rem;">
-                Verified Specifications
+            <div style="background-color: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.5rem;">
+              <h3 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: 0.85rem;">
+                Clinical Specifications
               </h3>
 
-              <div style="display: grid; grid-template-columns: 1fr; gap: 0.85rem; font-size: 0.95rem;">
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.5rem;">
+              <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.4rem;">
                   <span style="color: var(--color-text-muted);">Active Formulation:</span>
                   <strong style="color: var(--color-text-main); text-align: right; max-width: 60%;">${product.activeIngredients || 'Standardized active ingredient'}</strong>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.5rem;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.4rem;">
                   <span style="color: var(--color-text-muted);">Dosage Form:</span>
                   <strong style="color: var(--color-text-main);">${product.dosageForm || product.productType || 'Standard Form'}</strong>
                 </div>
 
                 ${product.packSize ? `
-                  <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.5rem;">
-                    <span style="color: var(--color-text-muted);">Packaging / Presentation:</span>
+                  <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0.4rem;">
+                    <span style="color: var(--color-text-muted);">Presentation:</span>
                     <strong style="color: var(--color-text-main);">${product.packSize}</strong>
                   </div>
                 ` : ''}
@@ -147,32 +156,37 @@ export function renderProductDetailPage(params) {
               </div>
             </div>
 
-            <!-- Clinical & Administration Guidance -->
+            <!-- Clinical & Administration Guidance with Mobile Expandable Detail -->
             ${product.useCase ? `
-              <div style="margin-bottom: 2rem;">
-                <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-text-main);">
-                  Intended Application & Guidance:
+              <div style="margin-bottom: 1.5rem;">
+                <h4 style="font-size: 1rem; margin-bottom: 0.4rem; color: var(--color-text-main);">
+                  Clinical Administration & Guidance:
                 </h4>
-                <p style="font-size: 0.95rem; color: var(--color-text-body); line-height: 1.6;">
-                  ${product.useCase}
-                </p>
+                <div id="product-clinical-use" class="mobile-expandable-content">
+                  <p style="font-size: 0.925rem; color: var(--color-text-body); line-height: 1.6; margin: 0;">
+                    ${product.useCase}
+                  </p>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm mobile-expand-btn" data-toggle-expand="product-clinical-use" data-more-text="Read Full Clinical Guidance" data-less-text="Show Less Guidance" style="margin-top: 0.5rem;">
+                  Read Full Clinical Guidance
+                </button>
               </div>
             ` : ''}
 
             <!-- Clinical Safety Warning -->
-            <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 0.85rem; color: #92400e; line-height: 1.5; display: flex; gap: 0.75rem; align-items: flex-start;">
-              <span style="color: #b45309; margin-top: 2px;">${icon('info', 'w-5 h-5')}</span>
+            <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; font-size: 0.825rem; color: #92400e; line-height: 1.5; display: flex; gap: 0.65rem; align-items: flex-start;">
+              <span style="color: #b45309; margin-top: 2px;">${icon('info', 'w-4 h-4')}</span>
               <div>
                 <strong>Safety Notice:</strong> 
                 ${isPrescription 
-                  ? 'This medicine is a controlled prescription therapeutic. Administration must be supervised by trained healthcare professionals in accordance with approved clinical inserts and diagnosis.'
-                  : 'Dietary supplements should not be used as a substitute for a varied, balanced diet and medical consultation.'}
+                  ? 'Controlled prescription therapeutic. Must be prescribed and administered strictly by licensed practitioners.'
+                  : 'Dietary supplements should not replace a balanced clinical diet or professional medical consultation.'}
               </div>
             </div>
 
-            <!-- Procurement & Inquiry Buttons -->
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <a href="/contact/" class="btn btn-primary" style="flex: 1 1 220px;">
+            <!-- Procurement & Direct Contact Buttons -->
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="/contact/" class="btn btn-primary" style="flex: 1 1 200px; justify-content: center;">
                 Request Wholesale Quote ${icon('arrowRight', 'w-4 h-4')}
               </a>
               <a href="${collectionUrl}" class="btn btn-secondary">
@@ -185,18 +199,18 @@ export function renderProductDetailPage(params) {
 
         <!-- Related Products Section -->
         ${relatedProducts.length > 0 ? `
-          <div style="border-top: 1px solid var(--color-border); padding-top: 3.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+          <div style="border-top: 1px solid var(--color-border); padding-top: 2.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem;">
               <div>
-                <span class="section-tag">Related Portfolio</span>
-                <h2 style="font-size: 1.75rem; margin: 0;">Complementary Formulations</h2>
+                <span class="section-tag">Complementary Medicines</span>
+                <h2 style="font-size: 1.5rem; margin: 0;">Related Healthcare Formulations</h2>
               </div>
               <a href="${collectionUrl}" class="btn btn-outline btn-sm">
-                Explore Full Catalog ${icon('arrowRight', 'w-3.5 h-3.5')}
+                View All ${icon('arrowRight', 'w-3.5 h-3.5')}
               </a>
             </div>
 
-            <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
               ${relatedProducts.map(p => renderProductCard(p, isSupplement)).join('')}
             </div>
           </div>
@@ -209,15 +223,15 @@ export function renderProductDetailPage(params) {
 
 function renderProductNotFound(slug) {
   return `
-    <div class="container section" style="text-align: center; padding: 6rem 1.5rem;">
-      <div style="width: 4rem; height: 4rem; border-radius: var(--radius-full); background: #fee2e2; color: var(--color-accent); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
-        ${icon('close', 'w-8 h-8')}
+    <div class="container section" style="text-align: center; padding: 5rem 1.5rem;">
+      <div style="width: 3.5rem; height: 3.5rem; border-radius: var(--radius-full); background: #fee2e2; color: var(--color-accent); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        ${icon('close', 'w-6 h-6')}
       </div>
-      <h1 style="font-size: 2.25rem; margin-bottom: 0.75rem;">Product Record Not Found</h1>
-      <p style="font-size: 1.05rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto 2rem;">
+      <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Product Record Not Found</h1>
+      <p style="font-size: 1rem; color: var(--color-text-muted); max-width: 500px; margin: 0 auto 1.75rem;">
         No pharmaceutical record matches the slug "<code>${slug}</code>". The item may have been reclassified or its URL updated.
       </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
         <a href="/products/therapeutic/" class="btn btn-primary">
           Browse Therapeutic Medicines
         </a>
@@ -227,4 +241,8 @@ function renderProductNotFound(slug) {
       </div>
     </div>
   `;
+}
+
+export function initProductDetailPage() {
+  initExpandableToggles();
 }

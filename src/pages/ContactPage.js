@@ -212,31 +212,59 @@ export function initContactPage() {
     if (hasErrors) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Transmitting Inquiry...';
+    submitBtn.textContent = 'Preparing Inquiry...';
 
     const ticketId = 'VIT-' + Math.floor(10000 + Math.random() * 90000);
 
+    // Save to local client storage as backup
+    try {
+      const records = JSON.parse(localStorage.getItem('vitborah_inquiries') || '[]');
+      records.push({ ticketId, name, email, phone, topic, message, date: new Date().toISOString() });
+      localStorage.setItem('vitborah_inquiries', JSON.stringify(records));
+    } catch (_) {}
+
+    const whatsappText = encodeURIComponent(
+      `Hello Vitborah Pharmaceuticals,\n\nI would like to submit an inquiry:\n- Ticket: ${ticketId}\n- Name: ${name}\n- Department: ${topic}\n- Phone: ${phone}\n- Email: ${email}\n\nMessage:\n${message}`
+    );
+    const whatsappUrl = `https://wa.me/2348063022165?text=${whatsappText}`;
+
+    const mailtoSubject = encodeURIComponent(`[Inquiry #${ticketId}] - ${topic} - ${name}`);
+    const mailtoBody = encodeURIComponent(
+      `Ticket Number: ${ticketId}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${topic}\n\nMessage:\n${message}`
+    );
+    const mailtoUrl = `mailto:info@vitborahpharm.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
     setTimeout(() => {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Dispatch Message to Department';
+      submitBtn.textContent = 'Submit Another Inquiry';
 
       if (statusEl) {
         statusEl.style.display = 'block';
         statusEl.innerHTML = `
           <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1.5rem; color: #166534; line-height: 1.6;">
             <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">
-              ${icon('checkCircle', 'w-6 h-6')} Inquiry Recorded (Ticket: ${ticketId})
+              ${icon('checkCircle', 'w-6 h-6')} Inquiry Prepared (Ticket: #${ticketId})
             </div>
-            <p style="font-size: 0.95rem; margin-bottom: 0.75rem;">
-              Thank you, <strong>${name}</strong>. Your communication regarding <em>"${topic}"</em> has been logged.
+            <p style="font-size: 0.95rem; margin-bottom: 1rem;">
+              Thank you, <strong>${name}</strong>. Your communication regarding <em>"${topic}"</em> is ready for instant direct transmission.
             </p>
-            <div style="background: rgba(255, 255, 255, 0.75); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px dashed #86efac; font-size: 0.85rem;">
-              For immediate order dispatch or emergency hospital supplies, you can also dial <strong>+234 806 302 2165</strong> or email <strong>info@vitborahpharm.com</strong> referencing Ticket #${ticketId}.
+            
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
+              <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background-color: #15803d; border-color: #15803d; color: #ffffff; justify-content: center; gap: 0.5rem;">
+                ${icon('phone', 'w-4 h-4')} Send Directly via WhatsApp (+234 806 302 2165)
+              </a>
+              <a href="${mailtoUrl}" class="btn btn-secondary" style="justify-content: center; gap: 0.5rem;">
+                ${icon('mail', 'w-4 h-4')} Send Directly via Official Email
+              </a>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.75); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px dashed #86efac; font-size: 0.825rem; color: #14532d;">
+              Your inquiry has also been safely saved to your local device memory under Reference #${ticketId}.
             </div>
           </div>
         `;
         form.reset();
       }
-    }, 600);
+    }, 350);
   });
 }

@@ -270,19 +270,63 @@ img {
   border-color: #cbd5e1;
 }
 
-/* Header & Top Bar */
-.top-bar {
-  background-color: #074321;
-  color: #d1fae5;
-  font-size: 0.825rem;
-  padding: 0.45rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+/* Header Navigation & CTA */
+.header-cta-btn {
+  display: none;
 }
-.top-bar a {
-  color: #a7f3d0;
+@media (min-width: 1024px) {
+  .header-cta-btn {
+    display: inline-flex;
+  }
 }
-.top-bar a:hover {
-  color: #ffffff;
+
+/* About Anchor Bar */
+.about-anchor-bar {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.anchor-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ecfdf5 !important;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.anchor-chip:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #ffffff;
+}
+
+/* Mobile Expandable Read More Toggles */
+.mobile-expand-btn {
+  display: none !important;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  }
+  .mobile-expandable-content.expanded {
+    max-height: 2000px;
+    opacity: 1;
+    margin-bottom: 0.75rem;
+  }
+  .mobile-expand-btn {
+    display: inline-flex !important;
+  }
 }
 
 .site-header {
@@ -1151,6 +1195,33 @@ svg {
 @media (min-width: 768px) {
   .footer-bottom {
     flex-direction: row;
+  }
+}
+
+/* Mobile Image Scaling & Responsive Enhancements */
+@media (max-width: 640px) {
+  .hero-img-card img {
+    height: 220px !important;
+  }
+  .carousel-img-container {
+    height: 220px !important;
+    padding: 1rem !important;
+  }
+  .product-detail-hero-img {
+    max-height: 240px !important;
+  }
+  .product-detail-img-card {
+    min-height: 240px !important;
+    padding: 1rem !important;
+  }
+  .product-card-img-wrap {
+    height: 180px !important;
+  }
+  .section {
+    padding: 3rem 0 !important;
+  }
+  .hero-wrapper {
+    padding: 3rem 0 3.5rem !important;
   }
 }
 

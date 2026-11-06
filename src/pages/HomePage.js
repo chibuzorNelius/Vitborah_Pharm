@@ -226,7 +226,7 @@ export function renderHomePage() {
               <a href="/about/" class="btn btn-primary">
                 Learn About Our History & Vision ${icon('arrowRight', 'w-4 h-4')}
               </a>
-              <a href="/leadership/" class="btn btn-secondary">
+              <a href="/about#leadership" class="btn btn-secondary">
                 Meet the Board of Directors
               </a>
             </div>
@@ -261,10 +261,10 @@ export function renderHomePage() {
                   "${ceo.executiveMessage}"
                 </p>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                  <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm">
+                  <a href="/about#leadershipvitus-agada/" class="btn btn-primary btn-sm">
                     Read Full CEO Profile ${icon('arrowRight', 'w-3.5 h-3.5')}
                   </a>
-                  <a href="/leadership/" class="btn btn-secondary btn-sm">
+                  <a href="/about#leadership" class="btn btn-secondary btn-sm">
                     View Entire Board of Directors
                   </a>
                 </div>
@@ -394,7 +394,7 @@ export function renderHomePage() {
         </div>
 
         <div style="text-align: center; margin-top: 2.5rem;">
-          <a href="/branches/" class="btn btn-secondary">
+          <a href="/about#branches" class="btn btn-secondary">
             View Complete Branch Specifications & Logistics ${icon('arrowRight', 'w-4 h-4')}
           </a>
         </div>
@@ -429,3 +429,4 @@ export function renderHomePage() {
 export function initHomePage() {
   initCarouselListeners();
 }
+

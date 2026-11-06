@@ -8,11 +8,9 @@ import { registerRoutes, initRouter } from './utils/router.js';
 import { renderHomePage, initHomePage } from './pages/HomePage.js';
 import { renderTherapeuticCollectionPage, initTherapeuticCollectionPage } from './pages/TherapeuticCollectionPage.js';
 import { renderSupplementsCollectionPage, initSupplementsCollectionPage } from './pages/SupplementsCollectionPage.js';
-import { renderProductDetailPage } from './pages/ProductDetailPage.js';
-import { renderAboutPage } from './pages/AboutPage.js';
-import { renderLeadershipPage } from './pages/LeadershipPage.js';
+import { renderProductDetailPage, initProductDetailPage } from './pages/ProductDetailPage.js';
+import { renderAboutPage, initAboutPage } from './pages/AboutPage.js';
 import { renderCeoProfilePage } from './pages/CeoProfilePage.js';
-import { renderBranchesPage } from './pages/BranchesPage.js';
 import { renderNewsPage } from './pages/NewsPage.js';
 import { renderArticleDetailPage } from './pages/ArticleDetailPage.js';
 import { renderCharityPage } from './pages/CharityPage.js';
@@ -47,9 +45,10 @@ function setPageContent(html, initFn = null) {
   }
 }
 
-// Bootstrap routes
+// Bootstrap layout
 mountLayout();
 
+// Register application routes
 registerRoutes([
   {
     path: '/',
@@ -57,11 +56,11 @@ registerRoutes([
   },
   {
     path: '/about',
-    handler: () => setPageContent(renderAboutPage())
+    handler: () => setPageContent(renderAboutPage(), initAboutPage)
   },
   {
     path: '/about/',
-    handler: () => setPageContent(renderAboutPage())
+    handler: () => setPageContent(renderAboutPage(), initAboutPage)
   },
   {
     path: '/products/therapeutic',
@@ -97,19 +96,26 @@ registerRoutes([
   },
   {
     path: '/products/:slug',
-    handler: (params) => setPageContent(renderProductDetailPage(params))
+    handler: (params) => setPageContent(renderProductDetailPage(params), initProductDetailPage)
   },
   {
     path: '/products/:slug/',
-    handler: (params) => setPageContent(renderProductDetailPage(params))
+    handler: (params) => setPageContent(renderProductDetailPage(params), initProductDetailPage)
   },
+  // Leadership & Branches packed into About Us with smooth anchor scrolling
   {
     path: '/leadership',
-    handler: () => setPageContent(renderLeadershipPage())
+    handler: () => {
+      setPageContent(renderAboutPage(), initAboutPage);
+      setTimeout(() => document.getElementById('leadership')?.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
   },
   {
     path: '/leadership/',
-    handler: () => setPageContent(renderLeadershipPage())
+    handler: () => {
+      setPageContent(renderAboutPage(), initAboutPage);
+      setTimeout(() => document.getElementById('leadership')?.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
   },
   {
     path: '/leadership/vitus-agada',
@@ -121,11 +127,17 @@ registerRoutes([
   },
   {
     path: '/branches',
-    handler: () => setPageContent(renderBranchesPage())
+    handler: () => {
+      setPageContent(renderAboutPage(), initAboutPage);
+      setTimeout(() => document.getElementById('branches')?.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
   },
   {
     path: '/branches/',
-    handler: () => setPageContent(renderBranchesPage())
+    handler: () => {
+      setPageContent(renderAboutPage(), initAboutPage);
+      setTimeout(() => document.getElementById('branches')?.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
   },
   {
     path: '/news',
@@ -204,3 +216,8 @@ registerRoutes([
 });
 
 initRouter();
+
+// Vite Hot Module Replacement (HMR) auto update & refresh
+if (import.meta.hot) {
+  import.meta.hot.accept();
+}
