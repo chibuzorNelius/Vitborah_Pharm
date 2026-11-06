@@ -9,7 +9,7 @@ export function renderCeoProfilePage() {
     title: 'Pharm. Okechukwu Vitus Agada | Managing Director & CEO | Vitborah Pharmaceuticals',
     description: 'Executive biography of Pharmacist Okechukwu Vitus Agada, Founder and CEO of Vitborah Pharmaceutical Company Limited (RC 753571). Learn about his vision for healthcare access in Nigeria.',
     canonicalPath: '/leadership/vitus-agada/',
-    image: '/company_image/pharmacy.jpeg',
+    image: ceo?.image || '/company_image/pharmmacist profile.jpeg',
     type: 'profile'
   });
 
@@ -36,8 +36,8 @@ export function renderCeoProfilePage() {
           <div>
             <div style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 4px solid var(--color-primary-surface); position: relative;">
               <img 
-                src="/company_image/pharmacy.jpeg" 
-                alt="Pharm. Okechukwu Vitus Agada in modern pharmacy" 
+                src="${ceo?.image || '/company_image/pharmmacist profile.jpeg'}" 
+                alt="Pharm. Okechukwu Vitus Agada" 
                 style="width: 100%; height: 460px; object-fit: cover;"
               />
               <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(7, 72, 36, 0.95), transparent); padding: 2rem 1.5rem 1.5rem; color: #ffffff;">

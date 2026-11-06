@@ -14,7 +14,7 @@ export function renderLeadershipPage() {
 
   return `
     <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 4rem 0 4.5rem;">
+    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 3.5rem 0 4rem;">
       <div class="container">
         <div class="breadcrumbs" style="color: #a7f3d0;">
           <a href="/" style="color: #a7f3d0;">Home</a>
@@ -25,23 +25,23 @@ export function renderLeadershipPage() {
         <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
           Corporate Governance
         </span>
-        <h1 style="color: #ffffff; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem;">
-          Board of Directors
+        <h1 style="color: #ffffff; font-size: clamp(2rem, 3.8vw, 3rem); margin-bottom: 0.75rem;">
+          Board of Directors & Governance
         </h1>
-        <p style="color: #d1fae5; font-size: 1.15rem; max-width: 760px; line-height: 1.65; margin: 0;">
+        <p style="color: #d1fae5; font-size: 1.1rem; max-width: 760px; line-height: 1.6; margin: 0;">
           Our Board of Directors provides strategic oversight, clinical stewardship, and statutory corporate governance, ensuring that Vitborah continues to fulfill its mission of delivering safe, accessible healthcare throughout Nigeria.
         </p>
       </div>
     </div>
 
     <!-- Governance Intro -->
-    <section class="section" style="padding-bottom: 1rem;">
+    <section class="section" style="padding-bottom: 1.5rem;">
       <div class="container">
-        <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; max-width: 960px; margin: 0 auto; display: flex; gap: 1.25rem; align-items: flex-start;">
-          <span style="color: var(--color-primary); flex-shrink: 0; margin-top: 4px;">${icon('shieldCheck', 'w-6 h-6')}</span>
+        <div style="background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; max-width: 960px; margin: 0 auto; display: flex; gap: 1rem; align-items: flex-start;">
+          <span style="color: var(--color-primary); flex-shrink: 0; margin-top: 3px;">${icon('shieldCheck', 'w-6 h-6')}</span>
           <div>
-            <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--color-text-main);">Statutory Corporate Governance Structure</h3>
-            <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem; color: var(--color-text-main);">Statutory Corporate Governance Structure</h3>
+            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.55; margin: 0;">
               In accordance with Nigerian Companies and Allied Matters Act (CAMA) standards and Pharmacists Council of Nigeria (PCN) statutory regulations, Vitborah maintains strict operational boundaries, clinical audits, and financial reporting.
             </p>
           </div>
@@ -49,50 +49,41 @@ export function renderLeadershipPage() {
       </div>
     </section>
 
-    <!-- Leadership Cards Grid -->
+    <!-- Leadership Cards Grid: Compact with Small Round Profile Placeholder -->
     <section class="section">
       <div class="container">
-        <div style="display: flex; flex-direction: column; gap: 3rem; max-width: 1040px; margin: 0 auto;">
-          ${boardMembers.map(member => `
-            <article class="card" style="padding: 2.5rem; display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;" class="hero-grid">
-              <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
-                <div style="display: flex; gap: 1.75rem; flex-direction: column;" class="leadership-content">
-                  <div>
-                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
-                      <span class="badge ${member.type === 'executive' ? 'badge-green' : 'badge-neutral'}">
-                        ${member.type === 'executive' ? 'Executive Director' : 'Non-Executive Director'}
-                      </span>
-                      <span class="badge badge-neutral">${member.tenure}</span>
-                    </div>
+        <div class="leadership-grid-compact" style="max-width: 1080px; margin: 0 auto;">
+          ${boardMembers.map(member => {
+            const initials = member.name
+              .replace('Pharm.', '')
+              .trim()
+              .split(' ')
+              .map(n => n[0])
+              .slice(0, 2)
+              .join('');
 
-                    <h2 style="font-size: 1.85rem; margin-bottom: 0.25rem; color: var(--color-text-main);">
-                      ${member.name}
-                    </h2>
-
-                    <div style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin-bottom: 1.25rem;">
-                      ${member.role}
-                    </div>
-
-                    <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.65; margin-bottom: 1.5rem;">
-                      ${member.bio}
-                    </p>
-
-                    ${member.committee ? `
-                      <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem; border: 1px solid var(--color-border-subtle);">
-                        <strong>Board Committee Assignment:</strong> ${member.committee}
-                      </div>
-                    ` : ''}
-
-                    ${member.id === 'vitus-agada' ? `
-                      <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm">
-                        View Detailed CEO Profile & Message ${icon('arrowRight', 'w-3.5 h-3.5')}
-                      </a>
-                    ` : ''}
-                  </div>
+            return `
+              <div class="leadership-card-compact">
+                <div class="leader-avatar-circle">
+                  ${member.image ? `<img src="${member.image}" alt="${member.name}" />` : initials}
+                </div>
+                <h3 class="leader-name">${member.name}</h3>
+                <div class="leader-role">${member.role}</div>
+                ${member.qualifications ? `<div class="leader-qualifications">${member.qualifications}</div>` : ''}
+                <p class="leader-bio-compact">${member.bio}</p>
+                <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                  <span class="badge ${member.type === 'executive' ? 'badge-green' : 'badge-neutral'}" style="font-size: 0.7rem; padding: 0.15rem 0.5rem; align-self: center;">
+                    ${member.type === 'executive' ? 'Executive Director' : 'Non-Executive'}
+                  </span>
+                  ${member.id === 'vitus-agada' ? `
+                    <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 0.4rem 0.75rem; margin-top: 0.25rem;">
+                      CEO Profile & Message ${icon('arrowRight', 'w-3 h-3')}
+                    </a>
+                  ` : ''}
                 </div>
               </div>
-            </article>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       </div>
     </section>
@@ -108,19 +99,19 @@ export function renderLeadershipPage() {
           </p>
         </div>
 
-        <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem;">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; font-size: 0.95rem;">
+        <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem;">
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; font-size: 0.9rem;">
             <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
               <span style="color: var(--color-primary); margin-top: 3px;">${icon('checkCircle', 'w-5 h-5')}</span>
               <span><strong>Supervised by Registered Pharmacists:</strong> Ensuring that all medicinal product distribution adheres strictly to ethical pharmacy laws in Nigeria.</span>
             </div>
             <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
               <span style="color: var(--color-primary); margin-top: 3px;">${icon('checkCircle', 'w-5 h-5')}</span>
-              <span><strong>Pre-shipment Batch Assay Auditing:</strong> Guaranteeing absence of sub-therapeutic chemical variations or counterfeit counterfeits.</span>
+              <span><strong>Pre-shipment Batch Assay Auditing:</strong> Guaranteeing absence of sub-therapeutic chemical variations or counterfeit goods.</span>
             </div>
             <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
               <span style="color: var(--color-primary); margin-top: 3px;">${icon('checkCircle', 'w-5 h-5')}</span>
-              <span><strong>Zero-Compromise Storage Verification:</strong> Enforcing constant temperature records in Awoyaya and Mushin warehousing.</span>
+              <span><strong>Zero-Compromise Storage Verification:</strong> Enforcing constant temperature records in Awoyaya and regional warehousing.</span>
             </div>
           </div>
         </div>

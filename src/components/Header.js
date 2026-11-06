@@ -18,13 +18,13 @@ export function renderHeader() {
           <a href="/products/supplements/" class="nav-link" data-nav-link>Supplements</a>
           <a href="/news/" class="nav-link" data-nav-link>News</a>
           <a href="/charity/" class="nav-link" data-nav-link>Foundation</a>
-          <a href="/contact/" class="nav-link" data-nav-link>Contact</a>
+          <a href="/work-with-us/" class="nav-link" data-nav-link>Work with Us</a>
         </nav>
 
         <!-- Right Action Button -->
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <a href="/contact/" class="btn btn-primary btn-sm header-cta-btn" id="header-cta-btn">
-            Distributor Inquiries
+          <a href="/work-with-us/" class="btn btn-primary btn-sm header-cta-btn" id="header-cta-btn">
+            Work with us
           </a>
           <button type="button" class="mobile-menu-btn" id="mobile-toggle-btn" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-drawer">
             ${icon('menu', 'w-6 h-6')}

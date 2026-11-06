@@ -2,54 +2,132 @@
   {
     "id": "lagos-headquarters",
     "name": "Corporate Headquarters & Main Distribution Hub",
+    "city": "Lagos (Ibeju-Lekki)",
     "region": "Lagos State (Island / Lekki Corridor)",
     "address": "No. 2, Olori Kudrat Elegushi Street, Awoyaya, Ibeju Lekki, Lagos, Nigeria",
     "phone": "+234 806 302 2165",
     "email": "info@vitborahpharm.com",
-    "operatingHours": "Monday – Friday: 8:00 AM – 6:00 PM; Saturday: 9:00 AM – 2:00 PM",
+    "operatingHours": "Mon – Fri: 8:00 AM – 6:00 PM; Sat: 9:00 AM – 2:00 PM",
     "services": [
       "Corporate Executive Offices",
       "Regulatory Affairs & NAFDAC Liaison",
       "Cold-Chain & Ambient Central Inventory",
-      "National Hospital & Wholesale Distribution",
-      "Pharmacovigilance & Customer Care"
+      "National Hospital & Wholesale Distribution"
     ],
     "isHeadquarters": true,
-    "coordinates": "6.4800° N, 3.7120° E",
     "status": "Operational & Active"
   },
   {
     "id": "mushin-distribution-depot",
     "name": "Central Lagos Mainland Distribution Depot",
+    "city": "Lagos (Mushin)",
     "region": "Lagos State (Mainland / Commercial Axis)",
     "address": "36, Layi Oyekanmi Street, Mushin, Lagos, Nigeria",
     "phone": "+234 806 302 2165",
     "email": "distribution@vitborahpharm.com",
-    "operatingHours": "Monday – Friday: 8:30 AM – 5:30 PM; Saturday: 9:00 AM – 1:00 PM",
+    "operatingHours": "Mon – Fri: 8:30 AM – 5:30 PM; Sat: 9:00 AM – 1:00 PM",
     "services": [
       "Commercial Pharmacy Rapid Order Dispatch",
       "Community Pharmacy Wholesale Desk",
-      "Regional Buffer Depository",
-      "Trade & Distributor Credit Desk"
+      "Regional Buffer Depository"
     ],
     "isHeadquarters": false,
-    "coordinates": "6.5298° N, 3.3541° E",
     "status": "Operational & Active"
   },
   {
     "id": "abuja-northern-liaison",
-    "name": "Abuja & Northern Region Distribution Liaison",
-    "region": "Federal Capital Territory (Abuja & North Central)",
-    "address": "Central Business District / Garki, Abuja, FCT, Nigeria",
+    "name": "Abuja Regional Distribution Hub",
+    "city": "Abuja (FCT)",
+    "region": "Federal Capital Territory & North Central",
+    "address": "Plot 104, Central Business District / Garki, Abuja, FCT, Nigeria",
     "phone": "+234 806 302 2165",
     "email": "abuja@vitborahpharm.com",
-    "operatingHours": "Monday – Friday: 8:30 AM – 5:00 PM",
+    "operatingHours": "Mon – Fri: 8:30 AM – 5:00 PM",
     "services": [
       "Federal Teaching Hospital & Institutional Supply",
-      "Northern Nigeria Regional Dispatch Coordination",
-      "Public Health & Tertiary Tenders Coordination"
+      "North Central Dispatch & Government Tenders"
     ],
     "isHeadquarters": false,
-    "status": "Active Distribution Network Hub"
+    "status": "Active Distribution Depot"
+  },
+  {
+    "id": "kaduna-depot",
+    "name": "Kaduna Northern Distribution Liaison",
+    "city": "Kaduna",
+    "region": "North West Region",
+    "address": "Ahmadu Bello Way Commercial Axis, Kaduna, Kaduna State, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "kaduna@vitborahpharm.com",
+    "operatingHours": "Mon – Fri: 8:30 AM – 5:00 PM",
+    "services": [
+      "State Hospital & Primary Healthcare Supplies",
+      "Northern Pharmacy Wholesaler Liaison"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Regional Depot"
+  },
+  {
+    "id": "onitsha-hub",
+    "name": "Onitsha Commercial Distribution Hub",
+    "city": "Onitsha",
+    "region": "Anambra State & South East",
+    "address": "Bridgehead Market Commercial Corridor / Ogbaru, Onitsha, Anambra State, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "onitsha@vitborahpharm.com",
+    "operatingHours": "Mon – Sat: 8:00 AM – 5:30 PM",
+    "services": [
+      "High-Volume Wholesale Trade & Direct Logistics",
+      "South East Regional Delivery Fleet"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Regional Hub"
+  },
+  {
+    "id": "aba-hub",
+    "name": "Aba Commercial Distribution Center",
+    "city": "Aba",
+    "region": "Abia State & Eastern Trading Axis",
+    "address": "Faulks / Market Road Commercial Corridor, Aba, Abia State, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "aba@vitborahpharm.com",
+    "operatingHours": "Mon – Sat: 8:30 AM – 5:00 PM",
+    "services": [
+      "Retail & Community Pharmacy Stocking Desk",
+      "Sub-regional Wholesale Distribution"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Regional Hub"
+  },
+  {
+    "id": "kano-hub",
+    "name": "Kano Northern Commercial Hub",
+    "city": "Kano",
+    "region": "Kano State & Upper Northern Territories",
+    "address": "Bompai Industrial Area / Fagge Commercial District, Kano State, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "kano@vitborahpharm.com",
+    "operatingHours": "Mon – Fri: 8:30 AM – 5:00 PM; Sat: 9:00 AM – 1:00 PM",
+    "services": [
+      "Northern Regional Cold-Chain Dispatch",
+      "Institutional Hospital Supply"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Regional Hub"
+  },
+  {
+    "id": "port-harcourt-hub",
+    "name": "Port Harcourt South-South Hub",
+    "city": "Port Harcourt",
+    "region": "Rivers State & Niger Delta Region",
+    "address": "Trans-Amadi Industrial Layout / Aba Road Axis, Port Harcourt, Rivers State, Nigeria",
+    "phone": "+234 806 302 2165",
+    "email": "portharcourt@vitborahpharm.com",
+    "operatingHours": "Mon – Fri: 8:00 AM – 5:30 PM",
+    "services": [
+      "Tertiary Hospital Supply & Private Clinic Consortia",
+      "South-South Distribution Coordination"
+    ],
+    "isHeadquarters": false,
+    "status": "Active Regional Hub"
   }
 ]

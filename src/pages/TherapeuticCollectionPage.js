@@ -1,7 +1,7 @@
 import therapeuticProducts from '../data/therapeuticProducts.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
-import { renderProductCarousel, initCarouselListeners } from '../components/ProductCarousel.js';
+import { renderCatalogBannerCarousel, initCatalogBannerCarousel } from '../components/CatalogBannerCarousel.js';
 import { updateSEO } from '../utils/seo.js';
 import { debounce } from '../utils/domHelpers.js';
 
@@ -21,36 +21,24 @@ export function renderTherapeuticCollectionPage() {
   const dosageForms = ['All', 'Tablet', 'Injection', 'Eye drops', 'Capsule', 'Syrup', 'Powder / sachet'];
 
   const filteredProducts = filterProducts(therapeuticProducts, activeCategory, activeForm, searchQuery);
-  const featured = therapeuticProducts.filter(p => p.featured);
 
   return `
-    <!-- Collection Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 3.5rem 0 4rem;">
+    <!-- Breadcrumb Bar -->
+    <div style="background: #051e10; padding: 0.85rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
       <div class="container">
-        <div class="breadcrumbs" style="color: #a7f3d0;">
+        <div class="breadcrumbs" style="margin: 0; color: #a7f3d0; font-size: 0.85rem;">
           <a href="/" style="color: #a7f3d0;">Home</a>
           <span class="separator">/</span>
-          <span class="current" style="color: #ffffff;">Therapeutic Medicines</span>
+          <span class="current" style="color: #ffffff;">Therapeutic Medicines Portfolio</span>
         </div>
-
-        <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
-          Prescription & Clinical Catalog
-        </span>
-        <h1 style="color: #ffffff; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem;">
-          Therapeutic Medicines Portfolio
-        </h1>
-        <p style="color: #d1fae5; font-size: 1.1rem; max-width: 720px; line-height: 1.6; margin: 0;">
-          Manufactured in compliance with international WHO-GMP pharmacopeial specifications and registered with NAFDAC. Formulated for verified clinical safety, hospital administration, and commercial pharmacy distribution.
-        </p>
       </div>
     </div>
 
-    <!-- Featured Showcase Carousel -->
-    <section class="section" style="padding-bottom: 2rem;">
-      <div class="container">
-        ${renderProductCarousel(featured, "Featured Therapeutic Formulations", "Selected clinical interventions across antibiotics, antimalarials, and emergency injectables.")}
-      </div>
-    </section>
+    <!-- Auto-Rotating Infinite Product Showcase Banner (Replaces Static Banner) -->
+    ${renderCatalogBannerCarousel(therapeuticProducts, 'therapeutic-banner-carousel', {
+      gradient: 'linear-gradient(135deg, #052c16 0%, #0e793c 100%)',
+      badgeText: 'NAFDAC Registered Prescription'
+    })}
 
     <!-- Main Products Directory with Dual Filters & Search -->
     <section class="section" style="padding-top: 1rem;">
@@ -69,7 +57,7 @@ export function renderTherapeuticCollectionPage() {
             />
           </div>
 
-          <!-- Dimension 1: Therapeutic Category Filter -->
+          <!-- Dimension 1: Therapeutic Category Filter (Mobile-friendly horizontal scroll) -->
           <div>
             <div style="font-size: 0.825rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
               Therapeutic Category:
@@ -83,7 +71,7 @@ export function renderTherapeuticCollectionPage() {
             </div>
           </div>
 
-          <!-- Dimension 2: Physical Dosage Form Filter (Independent Dimension) -->
+          <!-- Dimension 2: Physical Dosage Form Filter -->
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
               <span style="font-size: 0.825rem; font-weight: 700; color: var(--color-text-main); text-transform: uppercase; letter-spacing: 0.05em;">
@@ -165,7 +153,7 @@ function renderProductList(list) {
 }
 
 export function initTherapeuticCollectionPage() {
-  initCarouselListeners();
+  initCatalogBannerCarousel('therapeutic-banner-carousel', 6000);
 
   const searchInput = document.getElementById('search-input');
   const catChips = document.getElementById('category-chips');
@@ -178,7 +166,6 @@ export function initTherapeuticCollectionPage() {
     const container = document.getElementById('therapeutic-grid-container');
     if (container) {
       container.innerHTML = renderProductList(list);
-      // Re-attach empty reset button if shown
       document.getElementById('empty-reset-btn')?.addEventListener('click', resetAll);
     }
     const countEl = document.getElementById('product-count-display');

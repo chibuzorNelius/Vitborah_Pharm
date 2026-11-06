@@ -1,7 +1,7 @@
 import supplements from '../data/supplements.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
-import { renderProductCarousel, initCarouselListeners } from '../components/ProductCarousel.js';
+import { renderCatalogBannerCarousel, initCatalogBannerCarousel } from '../components/CatalogBannerCarousel.js';
 import { updateSEO } from '../utils/seo.js';
 import { debounce } from '../utils/domHelpers.js';
 
@@ -36,36 +36,24 @@ export function renderSupplementsCollectionPage() {
 
   const forms = ['All', 'Softgels', 'Tablets', 'Capsules', 'Gelatin Capsules'];
   const filteredSupplements = filterSupplements(supplements, activeCategory, activeForm, searchQuery);
-  const featured = supplements.filter(s => s.featured);
 
   return `
-    <!-- Supplements Hero Banner -->
-    <div style="background: linear-gradient(135deg, #0b5e2e 0%, #15803d 60%, #166534 100%); color: #ffffff; padding: 3.5rem 0 4rem;">
+    <!-- Breadcrumb Bar -->
+    <div style="background: #062312; padding: 0.85rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
       <div class="container">
-        <div class="breadcrumbs" style="color: #bbf7d0;">
+        <div class="breadcrumbs" style="margin: 0; color: #bbf7d0; font-size: 0.85rem;">
           <a href="/" style="color: #bbf7d0;">Home</a>
           <span class="separator">/</span>
-          <span class="current" style="color: #ffffff;">Dietary Supplements</span>
+          <span class="current" style="color: #ffffff;">New AGE Dietary Supplements</span>
         </div>
-
-        <span class="badge" style="background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.3); color: #ffffff; margin-bottom: 0.75rem;">
-          New AGE Nutraceutical Portfolio
-        </span>
-        <h1 style="color: #ffffff; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem;">
-          New AGE Dietary Supplements
-        </h1>
-        <p style="color: #ecfdf5; font-size: 1.1rem; max-width: 760px; line-height: 1.6; margin: 0;">
-          Engineered for preventive vitality, longevity, and metabolic resilience. Formulated with standardized, bioavailable bioactive compounds in certified dosage forms to support total wellness.
-        </p>
       </div>
     </div>
 
-    <!-- Featured Supplements Showcase -->
-    <section class="section" style="padding-bottom: 2rem;">
-      <div class="container">
-        ${renderProductCarousel(featured, "Featured Nutraceutical Formulations", "Scientifically calibrated botanical extracts, essential fatty acids, and chelated minerals.")}
-      </div>
-    </section>
+    <!-- Auto-Rotating Infinite Product Showcase Banner (Replaces Static Banner) -->
+    ${renderCatalogBannerCarousel(supplements, 'supplements-banner-carousel', {
+      gradient: 'linear-gradient(135deg, #07381b 0%, #15803d 55%, #166534 100%)',
+      badgeText: 'New AGE Nutraceutical Portfolio'
+    })}
 
     <!-- Main Supplements Directory with Filters -->
     <section class="section" style="padding-top: 1rem;">
@@ -83,7 +71,7 @@ export function renderSupplementsCollectionPage() {
             />
           </div>
 
-          <!-- Category filter -->
+          <!-- Category filter (Single Horizontally Scrollable Row on Mobile) -->
           <div>
             <div style="font-size: 0.825rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
               Health & Wellness Category:
@@ -177,7 +165,7 @@ function renderSupplementsList(list) {
 }
 
 export function initSupplementsCollectionPage() {
-  initCarouselListeners();
+  initCatalogBannerCarousel('supplements-banner-carousel', 6000);
 
   const searchInput = document.getElementById('supp-search-input');
   const catChips = document.getElementById('supp-category-chips');

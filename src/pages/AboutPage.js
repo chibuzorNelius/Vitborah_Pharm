@@ -224,7 +224,7 @@ export function renderAboutPage() {
       </div>
     </section>
 
-    <!-- Section 4: Board of Directors & Leadership (Packed into About Us) -->
+    <!-- Section 4: Board of Directors & Leadership (Compact Cards with Round Avatars) -->
     <section class="section section-alt" id="leadership">
       <div class="container">
         <div class="section-header">
@@ -235,105 +235,59 @@ export function renderAboutPage() {
           </p>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 1.75rem; max-width: 960px; margin: 0 auto;">
-          ${boardMembers.map(member => `
-            <article class="card leadership-card" style="padding: 1.75rem; border-left: 5px solid var(--color-primary);">
-              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
-                <span class="badge ${member.type === 'executive' ? 'badge-green' : 'badge-neutral'}">
-                  ${member.type === 'executive' ? 'Executive Director' : 'Non-Executive Director'}
-                </span>
-                <span class="badge badge-neutral">${member.tenure}</span>
-              </div>
-
-              <h3 style="font-size: 1.45rem; margin-bottom: 0.2rem; color: var(--color-text-main);">
-                ${member.name}
-              </h3>
-
-              <div style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.85rem;">
-                ${member.role}
-              </div>
-
-              <p style="font-size: 0.95rem; color: var(--color-text-body); line-height: 1.6; margin-bottom: 1rem;">
-                ${member.bio}
-              </p>
-
-              ${member.committee ? `
-                <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-sm); padding: 0.65rem 1rem; font-size: 0.825rem; color: var(--color-text-muted); margin-bottom: 1rem; border: 1px solid var(--color-border-subtle);">
-                  <strong>Board Committee Assignment:</strong> ${member.committee}
+        <div class="leadership-grid-compact" style="max-width: 1040px; margin: 0 auto;">
+          ${boardMembers.map(member => {
+            const initials = member.name.replace('Pharm.', '').trim().split(' ').map(n => n[0]).slice(0, 2).join('');
+            return `
+              <div class="leadership-card-compact">
+                <div class="leader-avatar-circle">
+                  ${member.image ? `<img src="${member.image}" alt="${member.name}" />` : initials}
                 </div>
-              ` : ''}
-
-              ${member.id === 'vitus-agada' ? `
-                <div>
-                  <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm">
-                    Read Detailed CEO Message & Qualifications ${icon('arrowRight', 'w-3.5 h-3.5')}
-                  </a>
+                <h3 class="leader-name">${member.name}</h3>
+                <div class="leader-role">${member.role}</div>
+                ${member.qualifications ? `<div class="leader-qualifications">${member.qualifications}</div>` : ''}
+                <p class="leader-bio-compact">${member.bio}</p>
+                <div style="margin-top: auto; padding-top: 0.5rem; width: 100%;">
+                  ${member.id === 'vitus-agada' ? `
+                    <a href="/leadership/vitus-agada/" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; font-size: 0.8rem;">
+                      CEO Profile & Vision ${icon('arrowRight', 'w-3 h-3')}
+                    </a>
+                  ` : `
+                    <span class="badge ${member.type === 'executive' ? 'badge-green' : 'badge-neutral'}" style="font-size: 0.725rem; display: inline-block;">
+                      ${member.type === 'executive' ? 'Executive Director' : 'Non-Executive'}
+                    </span>
+                  `}
                 </div>
-              ` : ''}
-            </article>
-          `).join('')}
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
     </section>
 
-    <!-- Section 5: Operational Branches & Depots (Packed into About Us) -->
+    <!-- Section 5: Operational Branches & Depots (Small, Simple Cards) -->
     <section class="section" id="branches">
       <div class="container">
         <div class="section-header">
-          <span class="badge badge-blue" style="margin-bottom: 0.5rem;">Supply Infrastructure</span>
+          <span class="badge badge-blue" style="margin-bottom: 0.5rem;">National Network</span>
           <h2 class="section-title">Operational Branches & Distribution Hubs</h2>
           <p class="section-desc">
-            Strategically placed warehousing and rapid-dispatch points ensuring consistent stock and cold-chain security across Nigeria.
+            Serving teaching hospitals, clinics, and wholesale distributors through strategically positioned hubs across Nigeria.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; max-width: 1040px; margin: 0 auto;">
+        <div class="branches-grid-compact" style="max-width: 1100px; margin: 0 auto;">
           ${branchesData.map(branch => `
-            <div class="card branch-card" style="padding: 1.75rem; display: flex; flex-direction: column; border-top: 4px solid ${branch.isHeadquarters ? 'var(--color-primary)' : '#0284c7'};">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-                <span class="badge ${branch.isHeadquarters ? 'badge-green' : 'badge-blue'}">
-                  ${branch.isHeadquarters ? 'National Headquarters' : 'Distribution Depot'}
-                </span>
-                <span class="badge badge-neutral">${branch.status}</span>
-              </div>
-
-              <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem; color: var(--color-text-main);">
-                ${branch.name}
-              </h3>
-              <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1rem;">
-                ${branch.region}
-              </div>
-
-              <div style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1;">
-                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: flex-start;">
-                  <span style="color: var(--color-primary); margin-top: 2px;">${icon('mapPin', 'w-4 h-4')}</span>
-                  <span>${branch.address}</span>
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
-                  <span style="color: var(--color-primary);">${icon('clock', 'w-4 h-4')}</span>
-                  <span>${branch.operatingHours}</span>
-                </div>
-              </div>
-
-              <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-sm); padding: 0.85rem; border: 1px solid var(--color-border-subtle); margin-bottom: 1rem; font-size: 0.825rem;">
-                <strong style="color: var(--color-text-main); display: block; margin-bottom: 0.35rem;">Hub Capabilities:</strong>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; color: var(--color-text-muted);">
-                  ${branch.services.slice(0, 3).map(s => `
-                    <li style="display: flex; align-items: center; gap: 0.35rem;">
-                      <span style="color: var(--color-primary);">${icon('check', 'w-3.5 h-3.5')}</span>
-                      <span>${s}</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-
-              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; font-size: 0.85rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border);">
-                <a href="tel:${branch.phone.replace(/[^0-9+]/g, '')}" class="btn btn-outline btn-sm" style="flex: 1; justify-content: center; min-width: 130px;">
-                  ${icon('phone', 'w-3.5 h-3.5')} Call Hub
-                </a>
-                <a href="mailto:${branch.email}" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center; min-width: 130px;">
-                  ${icon('mail', 'w-3.5 h-3.5')} Email
-                </a>
+            <div class="branch-card-compact ${branch.isHeadquarters ? 'is-hq' : 'is-depot'}">
+              <span class="branch-compact-badge" style="color: ${branch.isHeadquarters ? 'var(--color-primary)' : '#0284c7'};">
+                ${branch.isHeadquarters ? 'National Headquarters' : 'Distribution Hub'}
+              </span>
+              <h3 class="branch-compact-title">${branch.city}</h3>
+              <div class="branch-compact-region">${branch.region}</div>
+              <p class="branch-compact-address">${branch.address}</p>
+              <div class="branch-compact-contact">
+                <span>${branch.status}</span>
+                <a href="tel:${branch.phone.replace(/[^0-9+]/g, '')}">Call Hub</a>
               </div>
             </div>
           `).join('')}

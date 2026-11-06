@@ -3,15 +3,15 @@ import { updateSEO } from '../utils/seo.js';
 
 export function renderWorkWithUsPage() {
   updateSEO({
-    title: 'Careers & Work With Us | Vitborah Pharmaceuticals',
-    description: 'Explore career opportunities at Vitborah Pharmaceutical Company Limited. Join our medical sales, regulatory affairs, quality assurance, and healthcare logistics teams in Nigeria.',
+    title: 'Work With Us | Careers & Partnership Applications | Vitborah Pharmaceuticals',
+    description: 'Apply to work with Vitborah Pharmaceutical Company Limited as an authorized distributor, sales representative, healthcare partner, or team member in Nigeria.',
     canonicalPath: '/work-with-us/',
     image: '/company_image/pharmacy.jpeg'
   });
 
   return `
     <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 4rem 0 4.5rem;">
+    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 3.5rem 0 4rem;">
       <div class="container">
         <div class="breadcrumbs" style="color: #a7f3d0;">
           <a href="/" style="color: #a7f3d0;">Home</a>
@@ -20,118 +20,154 @@ export function renderWorkWithUsPage() {
         </div>
 
         <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
-          Talent & Careers
+          Partnerships & Careers Portal
         </span>
-        <h1 style="color: #ffffff; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem;">
-          Build Your Career With Vitborah Pharmaceuticals
+        <h1 style="color: #ffffff; font-size: clamp(2rem, 3.8vw, 3rem); margin-bottom: 0.75rem;">
+          Work With Vitborah Pharmaceuticals
         </h1>
-        <p style="color: #d1fae5; font-size: 1.15rem; max-width: 760px; line-height: 1.65; margin: 0;">
-          Join a dedicated team of pharmacists, supply chain specialists, and healthcare professionals committed to delivering essential medicines across Nigeria.
+        <p style="color: #d1fae5; font-size: 1.05rem; max-width: 760px; line-height: 1.6; margin: 0;">
+          Whether you are an individual medical sales professional, a commercial healthcare distributor, or an institutional partner seeking reliable pharmaceutical supply across Nigeria, we welcome your collaboration.
         </p>
       </div>
     </div>
 
-    <!-- Career Opportunities Grid -->
-    <section class="section" style="padding-bottom: 2rem;">
+    <!-- Application Form Section -->
+    <section class="section">
       <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Open Disciplines</span>
-          <h2 class="section-title">Areas of Professional Opportunity</h2>
-          <p class="section-desc">
-            We are consistently looking for talented professionals across clinical, commercial, and technical pharmaceutical domains.
-          </p>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
-          <div class="card" style="padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('stethoscope', 'w-8 h-8')}</div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Medical Sales Representatives</h3>
-            <div style="font-size: 0.8rem; color: var(--color-primary); font-weight: 700; margin-bottom: 0.75rem;">Lagos, Abuja & Regional Territories</div>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              Engage doctors, clinical pharmacologists, and pharmacy directors with verified clinical evidence for Vitborah therapeutic formulations and New AGE supplements.
+        <div style="max-width: 820px; margin: 0 auto; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3vw, 2.75rem); box-shadow: var(--shadow-lg);">
+          
+          <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 1.25rem;">
+            <span class="badge badge-green" style="margin-bottom: 0.5rem;">Application & Partnership Intake</span>
+            <h2 style="font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 0.35rem; color: var(--color-text-main);">
+              Partnership & Employment Application
+            </h2>
+            <p style="color: var(--color-text-muted); font-size: 0.925rem; margin: 0;">
+              Please complete the verified form below. Our executive partnerships and recruitment committee reviews submissions promptly.
             </p>
           </div>
 
-          <div class="card" style="padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('shieldCheck', 'w-8 h-8')}</div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Regulatory & Quality Officers</h3>
-            <div style="font-size: 0.8rem; color: var(--color-primary); font-weight: 700; margin-bottom: 0.75rem;">Headquarters (Ibeju-Lekki, Lagos)</div>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              Manage product dossier filings, NAFDAC recertifications, post-marketing surveillance, and pharmacovigilance adverse reaction documentation.
-            </p>
-          </div>
+          <!-- Status Message Target -->
+          <div id="work-form-status" style="display: none; margin-bottom: 1.5rem;"></div>
 
-          <div class="card" style="padding: 1.75rem;">
-            <div style="color: var(--color-primary); margin-bottom: 0.75rem;">${icon('building', 'w-8 h-8')}</div>
-            <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Warehouse & Cold-Chain Officers</h3>
-            <div style="font-size: 0.8rem; color: var(--color-primary); font-weight: 700; margin-bottom: 0.75rem;">Awoyaya & Mushin Depots</div>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.5;">
-              Supervise temperature-controlled inventory preservation, FEFO/FIFO batch rotation, dispatch documentation, and logistics security.
-            </p>
-          </div>
-        </div>
+          <form id="work-with-us-form" novalidate>
+            
+            <!-- 1. Applicant Type (Individual or Company) -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label class="form-label" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: block;">
+                Applicant Type *
+              </label>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
+                <label style="display: flex; align-items: center; gap: 0.65rem; padding: 0.85rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; background: var(--color-bg-subtle);" class="applicant-type-card">
+                  <input type="radio" name="applicantType" value="Individual" checked id="type-individual" />
+                  <div>
+                    <strong style="display: block; font-size: 0.9rem; color: var(--color-text-main);">Individual</strong>
+                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">Practitioner, Sales Rep, or Career Candidate</span>
+                  </div>
+                </label>
 
-        <!-- Expression of Interest Form -->
-        <div style="max-width: 820px; margin: 0 auto; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-lg);">
-          <div style="margin-bottom: 2rem;">
-            <span class="badge badge-green" style="margin-bottom: 0.5rem;">Direct Application</span>
-            <h2 style="font-size: 1.85rem; margin-bottom: 0.5rem;">Submit Expression of Interest</h2>
-            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin: 0;">
-              Complete the verified candidate profile below. Our Human Resources and talent acquisition desk reviews applications on an ongoing basis.
-            </p>
-          </div>
+                <label style="display: flex; align-items: center; gap: 0.65rem; padding: 0.85rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; background: var(--color-bg-subtle);" class="applicant-type-card">
+                  <input type="radio" name="applicantType" value="Company" id="type-company" />
+                  <div>
+                    <strong style="display: block; font-size: 0.9rem; color: var(--color-text-main);">Company / Entity</strong>
+                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">Wholesaler, Clinic, Pharmacy Chain, or Hospital</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-          <div id="career-form-status" style="display: none; margin-bottom: 1.5rem;"></div>
+            <!-- 2. Role They Want: Distributor, Sales Representative, Partner, Other -->
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+              <label class="form-label" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: block;">
+                Role / Engagement Category *
+              </label>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.65rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                  <input type="radio" name="roleCategory" value="Distributor" checked />
+                  <span style="font-size: 0.85rem; font-weight: 600;">Distributor</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                  <input type="radio" name="roleCategory" value="Sales Representative" />
+                  <span style="font-size: 0.85rem; font-weight: 600;">Sales Representative</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                  <input type="radio" name="roleCategory" value="Partner" />
+                  <span style="font-size: 0.85rem; font-weight: 600;">Partner / Hospital</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                  <input type="radio" name="roleCategory" value="Other" />
+                  <span style="font-size: 0.85rem; font-weight: 600;">Other Discipline</span>
+                </label>
+              </div>
+            </div>
 
-          <form id="career-form" novalidate>
+            <!-- 3. Form Input Fields -->
             <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem;" class="hero-grid">
               <div class="form-group" style="margin: 0;">
-                <label for="career-name" class="form-label">Full Legal Name *</label>
-                <input type="text" id="career-name" class="form-input" placeholder="e.g., Pharm. Emeka Bello" required />
-                <div class="form-error" id="career-name-error"></div>
+                <label for="work-name" class="form-label" id="name-label">Full Name *</label>
+                <input type="text" id="work-name" class="form-input" placeholder="e.g., Pharm. Chukwuemeka Bello" required />
+                <div class="form-error" id="work-name-error"></div>
               </div>
 
               <div class="form-group" style="margin: 0;">
-                <label for="career-email" class="form-label">Email Address *</label>
-                <input type="email" id="career-email" class="form-input" placeholder="e.g., e.bello@example.com" required />
-                <div class="form-error" id="career-email-error"></div>
+                <label for="work-email" class="form-label">Email Address *</label>
+                <input type="email" id="work-email" class="form-input" placeholder="e.g., contact@example.com" required />
+                <div class="form-error" id="work-email-error"></div>
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.25rem;" class="hero-grid">
               <div class="form-group" style="margin: 0;">
-                <label for="career-phone" class="form-label">Phone / WhatsApp Number *</label>
-                <input type="tel" id="career-phone" class="form-input" placeholder="+234 800 000 0000" required />
-                <div class="form-error" id="career-phone-error"></div>
+                <label for="work-phone" class="form-label">Phone / WhatsApp Number *</label>
+                <input type="tel" id="work-phone" class="form-input" placeholder="+234 800 000 0000" required />
+                <div class="form-error" id="work-phone-error"></div>
               </div>
 
               <div class="form-group" style="margin: 0;">
-                <label for="career-role" class="form-label">Area of Professional Interest *</label>
-                <select id="career-role" class="form-select" required>
-                  <option value="">Select a discipline...</option>
-                  <option value="Medical Sales Representative">Medical Sales Representative</option>
-                  <option value="Regulatory Affairs & Pharmacovigilance">Regulatory Affairs & Pharmacovigilance</option>
-                  <option value="Cold-Chain & Warehouse Logistics">Cold-Chain & Warehouse Logistics</option>
-                  <option value="Quality Assurance & Batch Audit">Quality Assurance & Batch Audit</option>
-                  <option value="Finance, Billing & Account Administration">Finance, Billing & Account Administration</option>
-                  <option value="General Healthcare Application">General Healthcare Application</option>
-                </select>
-                <div class="form-error" id="career-role-error"></div>
+                <label for="work-location" class="form-label">Location (State & City) *</label>
+                <input type="text" id="work-location" class="form-input" placeholder="e.g., Lagos (Ikeja), Abuja, Onitsha, Kano..." required />
+                <div class="form-error" id="work-location-error"></div>
               </div>
             </div>
 
-            <div class="form-group" style="margin-top: 1.25rem;">
-              <label for="career-experience" class="form-label">Relevant Experience & Professional Qualifications *</label>
-              <textarea id="career-experience" class="form-textarea" placeholder="Provide a brief summary of your clinical or commercial experience, educational degrees (e.g. B.Pharm, B.Sc), and current location..." required></textarea>
-              <div class="form-error" id="career-experience-error"></div>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.25rem;" class="hero-grid">
+              <div class="form-group" style="margin: 0;">
+                <label for="work-region" class="form-label">Proposed Territory / Distribution Area</label>
+                <input type="text" id="work-region" class="form-input" placeholder="e.g., Lagos Island & Lekki, South-East States, North-Central FCT..." />
+              </div>
+
+              <div class="form-group" style="margin: 0;">
+                <label for="work-experience" class="form-label">Years of Commercial / Clinical Experience</label>
+                <select id="work-experience" class="form-select">
+                  <option value="Entry / Under 2 years">Entry / Under 2 years</option>
+                  <option value="2 – 5 years" selected>2 – 5 years</option>
+                  <option value="5 – 10 years">5 – 10 years</option>
+                  <option value="10+ years (Established Distributor)">10+ years (Established Distributor / Network)</option>
+                </select>
+              </div>
             </div>
 
-            <div style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-              ${icon('shieldCheck', 'w-4 h-4')} <strong>Privacy Assurance:</strong> Candidate information submitted through this portal is processed strictly in accordance with Nigerian Data Protection laws and used solely for recruitment evaluation.
+            <!-- Message Field -->
+            <div class="form-group" style="margin-top: 1.25rem; margin-bottom: 1.5rem;">
+              <label for="work-message" class="form-label">
+                Why do you want to work with Vitborah Pharmaceuticals? *
+              </label>
+              <textarea 
+                id="work-message" 
+                class="form-textarea" 
+                rows="4" 
+                placeholder="Share a short message describing your distribution infrastructure, current retail network, or professional clinical goals with Vitborah..."
+                required
+              ></textarea>
+              <div class="form-error" id="work-message-error"></div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg" id="career-submit-btn" style="width: 100%;">
-              Submit Application Profile ${icon('arrowRight', 'w-4 h-4')}
+            <div style="background-color: var(--color-bg-subtle); border-radius: var(--radius-md); padding: 0.85rem 1rem; border: 1px solid var(--color-border); font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 1.5rem; display: flex; gap: 0.65rem; align-items: center;">
+              <span style="color: var(--color-primary); flex-shrink: 0;">${icon('shieldCheck', 'w-5 h-5')}</span>
+              <span><strong>Data Privacy:</strong> All partnership and career submissions are held in strict commercial confidence in accordance with the Nigerian Data Protection Act (NDPA).</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" id="work-submit-btn" style="width: 100%; justify-content: center; font-weight: 700;">
+              Submit Application to Executive Committee ${icon('arrowRight', 'w-4 h-4')}
             </button>
           </form>
         </div>
@@ -141,83 +177,106 @@ export function renderWorkWithUsPage() {
 }
 
 export function initWorkWithUsPage() {
-  const form = document.getElementById('career-form');
-  const statusEl = document.getElementById('career-form-status');
-  const submitBtn = document.getElementById('career-submit-btn');
+  const form = document.getElementById('work-with-us-form');
+  const statusEl = document.getElementById('work-form-status');
+  const submitBtn = document.getElementById('work-submit-btn');
+  const nameLabel = document.getElementById('name-label');
+  const nameInput = document.getElementById('work-name');
 
   if (!form) return;
+
+  // Toggle label depending on Applicant Type
+  document.querySelectorAll('input[name="applicantType"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      if (nameLabel && nameInput) {
+        if (e.target.value === 'Company') {
+          nameLabel.textContent = 'Company / Institutional Name *';
+          nameInput.placeholder = 'e.g., Apex Healthcare Logistics Ltd / Good Shepherd Hospital';
+        } else {
+          nameLabel.textContent = 'Full Legal Name *';
+          nameInput.placeholder = 'e.g., Pharm. Chukwuemeka Bello';
+        }
+      }
+    });
+  });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const nameInput = document.getElementById('career-name');
-    const emailInput = document.getElementById('career-email');
-    const phoneInput = document.getElementById('career-phone');
-    const roleInput = document.getElementById('career-role');
-    const expInput = document.getElementById('career-experience');
+    const nameVal = document.getElementById('work-name')?.value.trim();
+    const emailVal = document.getElementById('work-email')?.value.trim();
+    const phoneVal = document.getElementById('work-phone')?.value.trim();
+    const locationVal = document.getElementById('work-location')?.value.trim();
+    const regionVal = document.getElementById('work-region')?.value.trim();
+    const messageVal = document.getElementById('work-message')?.value.trim();
+    const applicantType = document.querySelector('input[name="applicantType"]:checked')?.value || 'Individual';
+    const roleCategory = document.querySelector('input[name="roleCategory"]:checked')?.value || 'Distributor';
 
-    // Reset errors
+    // Clear previous errors
     document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
 
     let hasErrors = false;
 
-    if (!nameInput.value.trim()) {
-      document.getElementById('career-name-error').textContent = 'Please provide your full legal name.';
+    if (!nameVal) {
+      document.getElementById('work-name-error').textContent = 'Please enter your name or company name.';
       hasErrors = true;
     }
-    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-      document.getElementById('career-email-error').textContent = 'Please enter a valid email address.';
+    if (!emailVal || !emailVal.includes('@')) {
+      document.getElementById('work-email-error').textContent = 'Please provide a valid email address.';
       hasErrors = true;
     }
-    if (!phoneInput.value.trim() || phoneInput.value.trim().length < 8) {
-      document.getElementById('career-phone-error').textContent = 'Please enter a valid phone number.';
+    if (!phoneVal || phoneVal.length < 8) {
+      document.getElementById('work-phone-error').textContent = 'Please enter a valid telephone or WhatsApp contact.';
       hasErrors = true;
     }
-    if (!roleInput.value) {
-      document.getElementById('career-role-error').textContent = 'Please select a discipline of interest.';
+    if (!locationVal) {
+      document.getElementById('work-location-error').textContent = 'Please specify your state and city location.';
       hasErrors = true;
     }
-    if (!expInput.value.trim() || expInput.value.trim().length < 20) {
-      document.getElementById('career-experience-error').textContent = 'Please provide at least a brief summary of your qualifications (20+ characters).';
+    if (!messageVal || messageVal.length < 15) {
+      document.getElementById('work-message-error').textContent = 'Please provide a brief statement (15+ characters) about why you want to work with Vitborah.';
       hasErrors = true;
     }
 
     if (hasErrors) return;
 
-    // Honest handling
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Validating Application...';
+    submitBtn.textContent = 'Recording Application...';
 
-    const refNum = 'VIB-' + Math.floor(100000 + Math.random() * 900000);
+    const refId = 'VIB-APP-' + Math.floor(100000 + Math.random() * 900000);
 
     setTimeout(() => {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Application Profile';
+      submitBtn.textContent = 'Submit Application to Executive Committee';
 
       if (statusEl) {
         statusEl.style.display = 'block';
         statusEl.innerHTML = `
           <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1.5rem; color: #166534; line-height: 1.6;">
-            <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">
-              ${icon('checkCircle', 'w-6 h-6')} Application Profile Generated (Ref: ${refNum})
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.5rem;">
+              ${icon('checkCircle', 'w-6 h-6')} Application Received Successfully
             </div>
-            <p style="font-size: 0.95rem; margin-bottom: 1rem;">
-              Thank you, <strong>${nameInput.value}</strong>. Your expression of interest for the <strong>${roleInput.value}</strong> position has been successfully recorded in the talent registry.
+            <p style="font-size: 0.95rem; margin-bottom: 0.75rem;">
+              Thank you, <strong>${nameVal}</strong>. Your application as a <strong>${roleCategory}</strong> (${applicantType}) has been logged in our central registry with Reference ID <strong>${refId}</strong>.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
-              <a href="mailto:info@vitborahpharm.com?subject=Job%20Application%20Ref:%20${refNum}%20-%20${encodeURIComponent(nameInput.value)}&body=${encodeURIComponent(`Candidate: ${nameInput.value}\nPhone: ${phoneInput.value}\nRole: ${roleInput.value}\nSummary: ${expInput.value}`)}" class="btn btn-primary" style="justify-content: center; gap: 0.5rem;">
-                ${icon('mail', 'w-4 h-4')} Email CV to HR Desk (Ref: ${refNum})
-              </a>
-              <a href="https://wa.me/2348063022165?text=${encodeURIComponent(`Hello Vitborah HR Recruitment,\n\nI have submitted my job candidacy:\n- Reference: ${refNum}\n- Name: ${nameInput.value}\n- Position: ${roleInput.value}\n- Phone: ${phoneInput.value}`)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content: center; gap: 0.5rem;">
-                ${icon('phone', 'w-4 h-4')} Message HR on WhatsApp
-              </a>
+            <div style="background: rgba(255, 255, 255, 0.8); border: 1px dashed #86efac; border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.85rem; margin-bottom: 1.25rem;">
+              <div><strong>Tracking Reference:</strong> ${refId}</div>
+              <div><strong>Applicant:</strong> ${nameVal} (${applicantType})</div>
+              <div><strong>Target Category:</strong> ${roleCategory}</div>
+              <div><strong>Primary Location:</strong> ${locationVal}${regionVal ? ` • Coverage: ${regionVal}` : ''}</div>
             </div>
-            <div style="background: rgba(255, 255, 255, 0.7); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px dashed #86efac; font-size: 0.825rem; color: #14532d;">
-              Please remember to attach your detailed Curriculum Vitae (CV) referencing Application ID <strong>${refNum}</strong>.
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="mailto:info@vitborahpharm.com?subject=Partnership%20Application%20Ref:%20${refId}%20-%20${encodeURIComponent(nameVal)}&body=${encodeURIComponent(`Reference: ${refId}\nApplicant: ${nameVal} (${applicantType})\nRole: ${roleCategory}\nPhone: ${phoneVal}\nLocation: ${locationVal}\nMessage: ${messageVal}`)}" class="btn btn-primary btn-sm" style="flex: 1; justify-content: center; min-width: 180px;">
+                ${icon('mail', 'w-4 h-4')} Send Direct Email (Ref: ${refId})
+              </a>
+              <a href="https://wa.me/2348063022165?text=${encodeURIComponent(`Hello Vitborah Partnerships,\n\nI just submitted my application via the portal:\n- Reference: ${refId}\n- Name: ${nameVal} (${applicantType})\n- Role: ${roleCategory}\n- Location: ${locationVal}`)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="flex: 1; justify-content: center; min-width: 180px;">
+                ${icon('phone', 'w-4 h-4')} Chat on WhatsApp
+              </a>
             </div>
           </div>
         `;
         form.reset();
+        statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }, 600);
   });
