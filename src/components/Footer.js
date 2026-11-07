@@ -90,12 +90,6 @@ export function renderFooter() {
           </div>
         </div>
 
-        <!-- Medical Disclaimer -->
-        <div style="background-color: rgba(0, 0, 0, 0.2); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 2rem; border-left: 4px solid var(--color-accent); font-size: 0.825rem; color: #94a3b8; line-height: 1.5;">
-          <strong style="color: #f1f5f9; display: block; margin-bottom: 0.25rem;">Important Clinical Disclaimer:</strong>
-          The pharmaceutical and healthcare information on this website is published solely for educational, professional healthcare distribution, and institutional procurement purposes. Prescription medications (Rx) must be prescribed and administered strictly by licensed healthcare practitioners. Dietary supplements are intended for nutritional maintenance and do not replace individualized medical advice or therapy.
-        </div>
-
         <!-- Bottom Copyright -->
         <div class="footer-bottom">
           <div>
