@@ -5,9 +5,9 @@ import { updateSEO } from '../utils/seo.js';
 export function renderLeadershipPage() {
   updateSEO({
     title: 'Board of Directors & Executive Leadership | Vitborah Pharmaceuticals',
-    description: 'Meet the Board of Directors of Vitborah Pharmaceutical Company Limited. Led by Pharmacist Okechukwu Vitus Agada (MD/CEO), steering clinical excellence, corporate governance, and ethical distribution in Nigeria.',
+    description: 'Meet the Board of Directors of Vitborah Pharmaceutical Company Limited. Led by Mr. Okechukwu Vitus Agada (MD/CEO), steering clinical excellence, corporate governance, and ethical distribution in Nigeria.',
     canonicalPath: '/leadership/',
-    image: '/company_image/pharmacy.jpeg'
+    image: '/company_image/board members.jpeg'
   });
 
   const { boardMembers } = leadershipData;

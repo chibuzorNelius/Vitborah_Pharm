@@ -78,22 +78,22 @@ export function renderAboutPage() {
       </div>
     </div>
 
-    <!-- Section 1: Company Overview -->
+    <!-- Section 1: Board Members & Company Leadership -->
     <section class="section" id="overview">
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;" class="hero-grid">
           <div>
-            <span class="section-tag">Who We Are</span>
+            <span class="section-tag">Board Members & Leadership</span>
             <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem;">
-              A Licensed, Registered Force in Nigerian Healthcare
+              Governed by Experienced Board Members & Global Partners
             </h2>
             <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.65; margin-bottom: 1rem;">
-              <strong>Vitborah Pharmaceutical Company Limited</strong> is a fully incorporated Nigerian healthcare enterprise (CAC Registration RC: 753571, incorporated June 16, 2008). We specialize in the importation, registration, marketing, and distribution of verified pharmaceutical formulations and dietary supplements.
+              <strong>Vitborah Pharmaceutical Company Limited</strong> (CAC Registration RC: 753571, incorporated June 16, 2008) is guided by an executive Board of Directors in strategic alignment with international pharmaceutical manufacturing partners.
             </p>
 
             <div id="overview-extended" class="mobile-expandable-content">
               <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1rem;">
-                Operating executive headquarters along the Lekki-Epe expressway corridor in Awoyaya, Lagos, with rapid distribution depots in Mushin and institutional representation in Abuja, Vitborah serves hundreds of teaching hospitals, clinical consortiums, and community pharmacies across all 36 states and the FCT.
+                Under the leadership of Mr. Okechukwu Vitus Agada (CEO) and our executive board, Vitborah operates corporate headquarters in Awoyaya, Ibeju-Lekki, Lagos, with nationwide distribution depots spanning Mushin, Abuja, Kaduna, Onitsha, and Aba, serving hundreds of hospitals, clinics, and pharmacies across all 36 states and the FCT.
               </p>
               <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1rem;">
                 Every batch imported under our stewardship is subject to verified certificates of analysis (CoA), temperature-controlled cold-chain logistics, and full NAFDAC compliance.
@@ -117,7 +117,10 @@ export function renderAboutPage() {
           </div>
 
           <div class="responsive-img-frame" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);">
-            <img src="/company_image/pharmacy.jpeg" alt="Vitborah Clinical Operations" style="width: 100%; max-height: 380px; object-fit: cover;" loading="lazy" />
+            <img src="/company_image/board members.jpeg" alt="Vitborah Board Members and Manufacturing Partners" style="width: 100%; max-height: 440px; object-fit: cover;" loading="lazy" />
+            <div style="background: var(--color-bg-subtle); padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border); text-align: center;">
+              <strong>Vitborah Board Members:</strong> Executive leadership and international technical manufacturing partners collaborating on healthcare solutions.
+            </div>
           </div>
         </div>
       </div>

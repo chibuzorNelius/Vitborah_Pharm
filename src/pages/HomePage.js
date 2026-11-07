@@ -324,7 +324,7 @@ export function renderHomePage() {
               Headquartered along the industrial corridor of Ibeju-Lekki, Lagos, <strong>Vitborah Pharmaceutical Company Limited</strong> operates as a registered corporate importer and nationwide distributor of essential medicines and nutraceuticals.
             </p>
             <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1.75rem;">
-              Under the clinical stewardship of Pharmacist Okechukwu Vitus Agada and our experienced Board of Directors, Vitborah partners with WHO-GMP certified manufacturers globally to guarantee authentic, temperature-regulated, and affordable pharmaceuticals.
+              Under the executive stewardship of Mr. Okechukwu Vitus Agada, supported by our pharmaceutical directors and experienced Board of Directors, Vitborah partners with WHO-GMP certified manufacturers globally to guarantee authentic, temperature-regulated, and affordable pharmaceuticals.
             </p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <a href="/about/" class="btn btn-primary">
