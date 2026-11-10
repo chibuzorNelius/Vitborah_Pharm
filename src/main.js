@@ -13,7 +13,7 @@ import { renderAboutPage, initAboutPage } from './pages/AboutPage.js';
 import { renderCeoProfilePage } from './pages/CeoProfilePage.js';
 import { renderNewsPage } from './pages/NewsPage.js';
 import { renderArticleDetailPage } from './pages/ArticleDetailPage.js';
-import { renderCharityPage } from './pages/CharityPage.js';
+import { renderCharityPage, initCharityPage } from './pages/CharityPage.js';
 import { renderPartnersPage } from './pages/PartnersPage.js';
 import { renderWorkWithUsPage, initWorkWithUsPage } from './pages/WorkWithUsPage.js';
 import { renderContactPage, initContactPage } from './pages/ContactPage.js';
@@ -157,11 +157,11 @@ registerRoutes([
   },
   {
     path: '/charity',
-    handler: () => setPageContent(renderCharityPage())
+    handler: () => setPageContent(renderCharityPage(), initCharityPage)
   },
   {
     path: '/charity/',
-    handler: () => setPageContent(renderCharityPage())
+    handler: () => setPageContent(renderCharityPage(), initCharityPage)
   },
   {
     path: '/partners',
