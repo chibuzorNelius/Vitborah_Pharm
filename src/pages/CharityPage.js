@@ -1,4 +1,4 @@
-import { icon } from '../utils/icons.js';
+﻿import { icon } from '../utils/icons.js';
 import { updateSEO } from '../utils/seo.js';
 
 export function renderCharityPage() {
@@ -10,9 +10,13 @@ export function renderCharityPage() {
   });
 
   return `
-    <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 4rem 0 4.5rem;">
-      <div class="container">
+    <!-- Hero Banner: Full-bleed charity image -->
+    <div class="charity-hero-banner">
+      <div class="charity-hero-bg">
+        <img src="/company_image/charity.jpeg" alt="Vitborah Foundation Outreach" class="charity-hero-bg-img" />
+      </div>
+      <div class="charity-hero-overlay"></div>
+      <div class="container charity-hero-content">
         <div class="breadcrumbs" style="color: #a7f3d0;">
           <a href="/" style="color: #a7f3d0;">Home</a>
           <span class="separator">/</span>
@@ -22,12 +26,19 @@ export function renderCharityPage() {
         <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
           Corporate Social Responsibility
         </span>
-        <h1 style="color: #ffffff; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem;">
-          The Vitborah Foundation
-        </h1>
-        <p style="color: #d1fae5; font-size: 1.15rem; max-width: 760px; line-height: 1.65; margin: 0;">
+        <h1 class="charity-hero-title">The Vitborah Foundation</h1>
+        <p class="charity-hero-desc">
           Extending essential healthcare, diagnostic screening, and life-saving therapeutic interventions to vulnerable families and underserved communities across Nigeria.
         </p>
+        <!-- Supporting text + CTA below hero image -->
+        <div class="charity-hero-cta-row">
+          <a href="" class="btn btn-primary" style="background: #22c55e; border-color: #22c55e; color: #ffffff; font-weight: 700;">
+            Explore our charity foundation website
+          </a>
+          <a href="/contact/" class="btn btn-outline" style="border-color: rgba(255,255,255,0.7); color: #ffffff;">
+            Partner on Outreach
+          </a>
+        </div>
       </div>
     </div>
 
@@ -58,10 +69,24 @@ export function renderCharityPage() {
           </div>
 
           <div style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid var(--color-border);">
-            <img src="/company_image/charity.jpeg" alt="Vitborah Foundation Medical Outreach in Lagos" style="width: 100%; height: 440px; object-fit: cover;" />
+            <img src="/company_image/foundationGroup.jpeg" alt="Vitborah Foundation Community Group" style="width: 100%; height: 440px; object-fit: cover; object-position: center top;" />
             <div style="background: var(--color-bg-subtle); padding: 0.85rem 1.25rem; font-size: 0.825rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border);">
               <strong>Documented Outreach:</strong> Healthcare volunteers from Vitborah Foundation conducting health assessments and distributing medicines in Lagos.
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Foundation Project Gallery -->
+    <section class="section" style="padding-top: 0; padding-bottom: 2rem;">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; border-radius: var(--radius-xl); overflow: hidden;">
+          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">
+            <img src="/company_image/foundationProject.jpeg" alt="Vitborah Foundation Project in Action" style="width: 100%; height: 240px; object-fit: cover; object-position: center;" loading="lazy" />
+          </div>
+          <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">
+            <img src="/company_image/foundationGroup.jpeg" alt="Vitborah Foundation Volunteer Group" style="width: 100%; height: 240px; object-fit: cover; object-position: center top;" loading="lazy" />
           </div>
         </div>
       </div>

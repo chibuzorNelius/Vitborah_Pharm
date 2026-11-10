@@ -162,7 +162,7 @@ function startAutoPlay(updateSlideFn) {
   stopAutoPlay();
   carouselTimer = setInterval(() => {
     updateSlideFn(currentSlideIndex + 1);
-  }, 6000);
+  }, 2000);
 }
 
 export function stopAutoPlay() {

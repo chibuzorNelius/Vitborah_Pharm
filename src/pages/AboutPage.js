@@ -1,4 +1,4 @@
-import leadershipData from '../data/leadership.json';
+﻿import leadershipData from '../data/leadership.json';
 import branchesData from '../data/branches.json';
 import { icon } from '../utils/icons.js';
 import { updateSEO } from '../utils/seo.js';
@@ -48,9 +48,19 @@ export function renderAboutPage() {
   const { boardMembers } = leadershipData;
 
   return `
-    <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 3.5rem 0 3.75rem;">
-      <div class="container">
+    <!-- Hero Banner: Full-bleed board members image with semi-transparent overlay -->
+    <div class="about-hero-banner">
+      <!-- Background image -->
+      <div class="about-hero-bg">
+        <img
+          src="/company_image/boarmembers.jpeg"
+          alt="Vitborah Board Members and Leadership Team"
+          class="about-hero-bg-img"
+        />
+      </div>
+      <!-- Semi-transparent overlay -->
+      <div class="about-hero-overlay"></div>
+      <div class="container about-hero-content">
         <div class="breadcrumbs" style="color: #a7f3d0;">
           <a href="/" style="color: #a7f3d0;">Home</a>
           <span class="separator">/</span>
@@ -58,22 +68,22 @@ export function renderAboutPage() {
         </div>
 
         <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
-          Our Corporate Heritage & Operations
+          Our Corporate Heritage &amp; Operations
         </span>
-        <h1 style="color: #ffffff; font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 0.75rem;">
-          Committed to Clinical Excellence & Healthcare Access in Nigeria
+        <h1 class="about-hero-title">
+          Committed to Clinical Excellence &amp; Healthcare Access in Nigeria
         </h1>
-        <p style="color: #d1fae5; font-size: 1.05rem; max-width: 760px; line-height: 1.6; margin: 0 0 1.5rem 0;">
+        <p class="about-hero-desc">
           Since 2008, Vitborah Pharmaceutical Company Limited (RC: 753571) has connected international pharmaceutical manufacturing standards with Nigerian clinical needs, supplying verified prescription medicines and nutritional supplements nationwide.
         </p>
 
         <!-- Quick Anchor Jump Bar -->
         <div class="about-anchor-bar">
           <a href="#overview" class="anchor-chip">Overview</a>
-          <a href="#principles" class="anchor-chip">Mission & Values</a>
+          <a href="#principles" class="anchor-chip">Mission &amp; Values</a>
           <a href="#timeline" class="anchor-chip">16-Year Heritage</a>
-          <a href="#leadership" class="anchor-chip">Board & Leadership</a>
-          <a href="#branches" class="anchor-chip">Branches & Depots</a>
+          <a href="#leadership" class="anchor-chip">Board &amp; Leadership</a>
+          <a href="#branches" class="anchor-chip">Branches &amp; Depots</a>
         </div>
       </div>
     </div>
@@ -117,7 +127,7 @@ export function renderAboutPage() {
           </div>
 
           <div class="responsive-img-frame" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);">
-            <img src="/company_image/board members.jpeg" alt="Vitborah Board Members and Manufacturing Partners" style="width: 100%; max-height: 440px; object-fit: cover;" loading="lazy" />
+            <img src="/company_image/boarmembers.jpeg" alt="Vitborah Board Members and Manufacturing Partners" style="width: 100%; max-height: 440px; object-fit: cover;" loading="lazy" />
             <div style="background: var(--color-bg-subtle); padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border); text-align: center;">
               <strong>Vitborah Board Members:</strong> Executive leadership and international technical manufacturing partners collaborating on healthcare solutions.
             </div>
@@ -164,9 +174,9 @@ export function renderAboutPage() {
             </div>
             <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Core Values</h3>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.875rem; color: var(--color-text-muted);">
-              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Clinical Integrity:</strong> Absolute zero tolerance for sub-potent or unverified medicines.</li>
-              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Strict Compliance:</strong> 100% adherence to PCN and NAFDAC statutory regulations.</li>
-              <li><strong style="color: var(--color-text-main); font-weight: 600;">• Cold-Chain Care:</strong> Meticulous temperature monitoring for delicate formulations.</li>
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">â€¢ Clinical Integrity:</strong> Absolute zero tolerance for sub-potent or unverified medicines.</li>
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">â€¢ Strict Compliance:</strong> 100% adherence to PCN and NAFDAC statutory regulations.</li>
+              <li><strong style="color: var(--color-text-main); font-weight: 600;">â€¢ Cold-Chain Care:</strong> Meticulous temperature monitoring for delicate formulations.</li>
             </ul>
           </div>
         </div>

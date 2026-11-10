@@ -1,4 +1,4 @@
-import therapeuticProducts from '../data/therapeuticProducts.json';
+﻿import therapeuticProducts from '../data/therapeuticProducts.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { renderCatalogBannerCarousel, initCatalogBannerCarousel } from '../components/CatalogBannerCarousel.js';

@@ -385,7 +385,7 @@ export function renderHomePage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;" class="hero-grid">
           <div style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg);">
-            <img src="/company_image/charity.jpeg" alt="Vitborah Foundation Community Healthcare Outreach" style="width: 100%; height: 340px; object-fit: cover;" />
+            <img src="/company_image/foundationGroup.jpeg" alt="Vitborah Foundation Community Healthcare Group" style="width: 100%; height: 340px; object-fit: cover; object-position: center top;" />
           </div>
           <div>
             <span class="section-tag">Social Responsibility</span>

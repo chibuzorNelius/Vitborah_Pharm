@@ -1,4 +1,4 @@
-import supplements from '../data/supplements.json';
+﻿import supplements from '../data/supplements.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { renderCatalogBannerCarousel, initCatalogBannerCarousel } from '../components/CatalogBannerCarousel.js';
@@ -52,6 +52,7 @@ export function renderSupplementsCollectionPage() {
     <!-- Auto-Rotating Infinite Product Showcase Banner (Replaces Static Banner) -->
     ${renderCatalogBannerCarousel(supplements, 'supplements-banner-carousel', {
       gradient: 'linear-gradient(135deg, #07381b 0%, #15803d 55%, #166534 100%)',
+      imagePanelBg: 'linear-gradient(135deg, #f0fff4 0%, #ecfdf5 100%)',
       badgeText: 'New AGE Nutraceutical Portfolio'
     })}
 
