@@ -1,9 +1,10 @@
-﻿import therapeuticProducts from '../data/therapeuticProducts.json';
+import therapeuticProducts from '../data/therapeuticProducts.json';
 import { icon } from '../utils/icons.js';
 import { renderProductCard } from '../components/ProductCard.js';
 import { renderCatalogBannerCarousel, initCatalogBannerCarousel } from '../components/CatalogBannerCarousel.js';
 import { updateSEO } from '../utils/seo.js';
 import { debounce } from '../utils/domHelpers.js';
+import { filterTherapeuticProducts } from '../utils/catalogFilters.js';
 
 let activeCategory = 'All';
 let activeForm = 'All';
@@ -12,15 +13,15 @@ let searchQuery = '';
 export function renderTherapeuticCollectionPage() {
   updateSEO({
     title: 'Therapeutic Medicines Collection | Vitborah Pharmaceuticals',
-    description: 'Browse NAFDAC-certified therapeutic medicines from Vitborah Pharmaceutical Company Limited. Injections, tablets, suspensions, and eye drops for clinical and hospital healthcare in Nigeria.',
+    description: 'Browse NAFDAC-certified therapeutic medicines from Vitborah Pharmaceutical Company Limited. Injections, tablets, topical creams, capsules, syrups, and eye drops for clinical and hospital healthcare in Nigeria.',
     canonicalPath: '/products/therapeutic/',
     image: '/company_image/pharmacy.jpeg'
   });
 
-  const categories = ['All', 'Antibacterial', 'Antimalarial', 'Antifungal', 'Eye care', 'Pain and inflammation', 'Rehydration and electrolyte replacement', 'Vitamins and nutritional support'];
-  const dosageForms = ['All', 'Tablet', 'Injection', 'Eye drops', 'Capsule', 'Syrup', 'Powder / sachet'];
+  const categories = ['All', 'Antibacterial', 'Antimalarial', 'Antifungal', 'Eye care', 'Pain and inflammation', 'Skin & Topical Care', 'Rehydration and electrolyte replacement', 'Vitamins and nutritional support'];
+  const dosageForms = ['All', 'Tablet', 'Injection', 'Cream', 'Eye drops', 'Capsule', 'Syrup', 'Powder / sachet'];
 
-  const filteredProducts = filterProducts(therapeuticProducts, activeCategory, activeForm, searchQuery);
+  const filteredProducts = filterTherapeuticProducts(therapeuticProducts, activeCategory, activeForm, searchQuery);
 
   return `
     <!-- Breadcrumb Bar -->
@@ -112,21 +113,6 @@ export function renderTherapeuticCollectionPage() {
   `;
 }
 
-function filterProducts(list, cat, form, query) {
-  return list.filter(item => {
-    const matchesCat = cat === 'All' || item.therapeuticCategory === cat;
-    const matchesForm = form === 'All' || (item.productType && item.productType.toLowerCase().includes(form.toLowerCase()));
-    const q = query.trim().toLowerCase();
-    const matchesQuery = !q || (
-      item.name.toLowerCase().includes(q) ||
-      (item.activeIngredients && item.activeIngredients.toLowerCase().includes(q)) ||
-      (item.description && item.description.toLowerCase().includes(q)) ||
-      (item.therapeuticCategory && item.therapeuticCategory.toLowerCase().includes(q))
-    );
-    return matchesCat && matchesForm && matchesQuery;
-  });
-}
-
 function renderProductList(list) {
   if (list.length === 0) {
     return `
@@ -162,7 +148,7 @@ export function initTherapeuticCollectionPage() {
   const emptyResetBtn = document.getElementById('empty-reset-btn');
 
   const refreshGrid = () => {
-    const list = filterProducts(therapeuticProducts, activeCategory, activeForm, searchQuery);
+    const list = filterTherapeuticProducts(therapeuticProducts, activeCategory, activeForm, searchQuery);
     const container = document.getElementById('therapeutic-grid-container');
     if (container) {
       container.innerHTML = renderProductList(list);

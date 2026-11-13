@@ -1,114 +1,240 @@
 import newsArticles from '../data/news.json';
 import { icon } from '../utils/icons.js';
 import { updateSEO } from '../utils/seo.js';
+import { filterNewsByTopic, countNewsByTopics } from '../utils/catalogFilters.js';
+
+let activeTopic = 'All';
+
+const TOPICS = [
+  { id: 'All', label: 'All Updates' },
+  { id: 'Coming Soon', label: 'Coming Soon' },
+  { id: 'Now Selling', label: 'Now Selling' },
+  { id: 'Flash Sales', label: 'Flash Sales' }
+];
+
+function getTopicToneClass(topic) {
+  if (topic === 'Coming Soon') return 'news-topic-coming';
+  if (topic === 'Flash Sales') return 'news-topic-flash';
+  return 'news-topic-live';
+}
+
+function renderFeaturedDispatch(article) {
+  if (!article) return '';
+  const isContain = article.imageFit === 'contain';
+  const topic = article.topic || article.category;
+
+  return `
+    <article class="news-featured-card">
+      <div class="news-featured-media ${isContain ? 'is-product-stage' : ''}">
+        <img
+          src="${article.featuredImage || '/company_image/pharmacy.jpeg'}"
+          alt="${article.title}"
+          class="${isContain ? 'is-contain' : 'is-cover'}"
+        />
+      </div>
+
+      <div class="news-featured-body">
+        <div class="news-meta-line">
+          <span class="news-topic-label ${getTopicToneClass(topic)}">${topic}</span>
+          <span class="news-meta-sep" aria-hidden="true">&middot;</span>
+          <time datetime="${article.isoDate}">${article.date}</time>
+          <span class="news-meta-sep" aria-hidden="true">&middot;</span>
+          <span>${article.author}</span>
+        </div>
+
+        <h2 class="news-featured-title">
+          <a href="/news/${article.slug}/">${article.title}</a>
+        </h2>
+
+        <p class="news-featured-summary">${article.summary}</p>
+
+        <div class="news-featured-actions">
+          <a href="/news/${article.slug}/" class="btn btn-primary btn-sm">
+            Read Full Dispatch ${icon('arrowRight', 'w-3.5 h-3.5')}
+          </a>
+          ${article.ctaUrl ? `
+            <a href="${article.ctaUrl}" class="btn btn-outline btn-sm">
+              ${article.ctaText || 'View Product'}
+            </a>
+          ` : ''}
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderArticleCard(article) {
+  const isContain = article.imageFit === 'contain';
+  const topic = article.topic || article.category;
+
+  return `
+    <article class="card card-hover news-grid-card">
+      <a href="/news/${article.slug}/" class="news-card-media ${isContain ? 'is-product-stage' : ''}">
+        <img
+          src="${article.featuredImage || '/company_image/pharmacy.jpeg'}"
+          alt="${article.title}"
+          class="${isContain ? 'is-contain' : 'is-cover'}"
+          loading="lazy"
+        />
+      </a>
+
+      <div class="news-card-content">
+        <div class="news-meta-line">
+          <span class="news-topic-label ${getTopicToneClass(topic)}">${topic}</span>
+          <span class="news-meta-sep" aria-hidden="true">&middot;</span>
+          <time datetime="${article.isoDate}">${article.date}</time>
+        </div>
+
+        <h3 class="news-card-title">
+          <a href="/news/${article.slug}/">${article.title}</a>
+        </h3>
+
+        <p class="news-card-summary">${article.summary}</p>
+
+        <div class="news-card-footer">
+          <a href="/news/${article.slug}/" class="news-read-link">
+            Read Dispatch ${icon('arrowRight', 'w-3.5 h-3.5')}
+          </a>
+          ${article.ctaUrl ? `
+            <a href="${article.ctaUrl}" class="news-product-link">
+              ${article.ctaText || 'Details'}
+            </a>
+          ` : ''}
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderNewsContent(topic) {
+  const filtered = filterNewsByTopic(newsArticles, topic);
+  if (filtered.length === 0) {
+    return `
+      <div style="text-align: center; padding: 3.5rem 1.5rem; background: var(--color-bg-subtle); border-radius: var(--radius-lg); border: 1px dashed var(--color-border);">
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">No updates in this category yet</h3>
+        <p style="color: var(--color-text-muted); margin-bottom: 1.25rem;">Switch back to view all product releases, upcoming arrivals, and flash sale notices.</p>
+        <button type="button" class="btn btn-primary btn-sm" id="news-reset-filter-btn">Show All Updates</button>
+      </div>
+    `;
+  }
+
+  const featured = filtered[0];
+  const rest = filtered.slice(1);
+
+  return `
+    ${renderFeaturedDispatch(featured)}
+    ${rest.length > 0 ? `
+      <div class="news-grid-header">
+        <h2 class="news-section-heading">${topic === 'All' ? 'More Product Releases & Flash Sales' : `${topic} Updates`}</h2>
+        <span class="news-count-label">${filtered.length} ${filtered.length === 1 ? 'dispatch' : 'dispatches'}</span>
+      </div>
+      <div class="news-cards-grid">
+        ${rest.map(renderArticleCard).join('')}
+      </div>
+    ` : ''}
+  `;
+}
 
 export function renderNewsPage() {
   updateSEO({
-    title: 'Company News & Corporate Announcements | Vitborah Pharmaceuticals',
-    description: 'Official announcements, cold-chain distribution updates, regulatory milestones, and Vitborah Foundation outreach reports from Vitborah Pharmaceutical Company Limited.',
+    title: 'Product News, Arrivals & Flash Sales | Vitborah Pharmaceuticals',
+    description: 'Latest updates from Vitborah Pharmaceutical Company Limited: coming-soon skin creams (Skibora, Boraclear, Borbact), newly stocked medicines now selling, and pharmacy flash sales.',
     canonicalPath: '/news/',
-    image: '/company_image/pharmacy.jpeg'
+    image: '/products_image/boraclear.png'
   });
 
-  const featured = newsArticles[0];
-  const others = newsArticles.slice(1);
+  const counts = countNewsByTopics(newsArticles);
 
   return `
-    <!-- Hero Banner -->
-    <div style="background: linear-gradient(135deg, #074824 0%, #0e793c 100%); color: #ffffff; padding: 4rem 0 4.5rem;">
+    <!-- Clean Editorial Dispatch Header -->
+    <section class="news-hero-band">
       <div class="container">
-        <div class="breadcrumbs" style="color: #a7f3d0;">
+        <div class="breadcrumbs" style="color: #a7f3d0; margin-bottom: 1rem;">
           <a href="/" style="color: #a7f3d0;">Home</a>
           <span class="separator">/</span>
-          <span class="current" style="color: #ffffff;">News & Announcements</span>
+          <span class="current" style="color: #ffffff;">News &amp; Releases</span>
         </div>
 
-        <span class="badge badge-green" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.25); color: #ffffff; margin-bottom: 0.75rem;">
-          Press & Corporate Dispatch
-        </span>
-        <h1 style="color: #ffffff; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem;">
-          Company News & Announcements
-        </h1>
-        <p style="color: #d1fae5; font-size: 1.15rem; max-width: 760px; line-height: 1.65; margin: 0;">
-          Read verified reports on our regulatory achievements, cold-chain facility updates, healthcare distribution initiatives, and community medical missions.
-        </p>
-      </div>
-    </div>
+        <div class="news-hero-layout">
+          <div>
+            <div class="news-hero-kicker">Vitborah Product &amp; Trade Bulletins</div>
+            <h1 class="news-hero-title">Product Arrivals, Coming Soon &amp; Flash Sales</h1>
+            <p class="news-hero-desc">
+              Stay updated on upcoming topical creams, newly stocked therapeutic formulations open for immediate ordering, and seasonal institutional flash sales.
+            </p>
+          </div>
 
-    <!-- Featured News Story -->
-    <section class="section" style="padding-bottom: 2rem;">
-      <div class="container">
-        <div class="card" style="display: grid; grid-template-columns: 1fr; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-lg);" class="hero-grid">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 0;" class="hero-grid">
-            <div style="height: 380px; overflow: hidden; background-color: var(--color-bg-subtle);">
-              <img 
-                src="${featured.featuredImage || '/company_image/pharmacy.jpeg'}" 
-                alt="${featured.title}" 
-                style="width: 100%; height: 100%; object-fit: cover;"
-              />
+          <div class="news-hero-summary">
+            <div class="news-stat-tile">
+              <span class="news-stat-value">${counts['Coming Soon']}</span>
+              <span class="news-stat-label">Coming Soon</span>
             </div>
-            <div style="padding: 2.5rem; display: flex; flex-direction: column; justify-content: center;">
-              <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted);">
-                <span class="badge badge-green">${featured.category}</span>
-                <span>${featured.date}</span>
-                <span>• ${featured.author}</span>
-              </div>
-              <h2 style="font-size: 1.85rem; line-height: 1.25; margin-bottom: 1rem; color: var(--color-text-main);">
-                <a href="/news/${featured.slug}/" style="color: inherit;">${featured.title}</a>
-              </h2>
-              <p style="font-size: 1.05rem; color: var(--color-text-body); line-height: 1.6; margin-bottom: 1.5rem;">
-                ${featured.summary}
-              </p>
-              <div>
-                <a href="/news/${featured.slug}/" class="btn btn-primary">
-                  Read Full Article ${icon('arrowRight', 'w-4 h-4')}
-                </a>
-              </div>
+            <div class="news-stat-tile">
+              <span class="news-stat-value">${counts['Now Selling']}</span>
+              <span class="news-stat-label">Now Selling</span>
+            </div>
+            <div class="news-stat-tile">
+              <span class="news-stat-value">${counts['Flash Sales']}</span>
+              <span class="news-stat-label">Flash Sales</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Other News Articles Grid -->
-    <section class="section" style="padding-top: 1rem;">
+    <!-- Filter Tabs & Dispatches -->
+    <section class="section" style="padding-top: 2rem;">
       <div class="container">
-        <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">Recent Publications</h2>
+        <div class="news-filter-bar">
+          <div class="filter-chips-row" id="news-topic-chips" role="tablist" aria-label="Filter news by topic">
+            ${TOPICS.map(t => `
+              <button
+                type="button"
+                role="tab"
+                aria-selected="${activeTopic === t.id ? 'true' : 'false'}"
+                class="filter-chip ${activeTopic === t.id ? 'active' : ''}"
+                data-topic="${t.id}"
+              >
+                ${t.label} (${counts[t.id] ?? 0})
+              </button>
+            `).join('')}
+          </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
-          ${others.map(article => `
-            <article class="card card-hover" style="display: flex; flex-direction: column;">
-              <div style="height: 220px; overflow: hidden; background-color: var(--color-bg-subtle);">
-                <img 
-                  src="${article.featuredImage || '/company_image/pharmacy.jpeg'}" 
-                  alt="${article.title}" 
-                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
-                  onmouseover="this.style.transform='scale(1.05)'"
-                  onmouseout="this.style.transform='scale(1)'"
-                />
-              </div>
-              <div style="padding: 1.75rem; display: flex; flex-direction: column; flex-grow: 1;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; font-size: 0.8rem; color: var(--color-text-muted);">
-                  <span class="badge badge-green">${article.category}</span>
-                  <span>${article.date}</span>
-                </div>
-                <h3 style="font-size: 1.2rem; line-height: 1.35; margin-bottom: 0.75rem; color: var(--color-text-main);">
-                  <a href="/news/${article.slug}/" style="color: inherit;">${article.title}</a>
-                </h3>
-                <p style="font-size: 0.925rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 1.25rem; flex-grow: 1;">
-                  ${article.summary}
-                </p>
-                <div style="border-top: 1px solid var(--color-border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                  <span style="font-size: 0.8rem; color: var(--color-text-muted);">${article.author}</span>
-                  <a href="/news/${article.slug}/" style="font-size: 0.85rem; font-weight: 700; color: var(--color-primary); display: inline-flex; align-items: center; gap: 0.35rem;">
-                    Read Article ${icon('arrowRight', 'w-3.5 h-3.5')}
-                  </a>
-                </div>
-              </div>
-            </article>
-          `).join('')}
+          <a href="/contact/" class="news-trade-cta">
+            Trade &amp; Allocation Desk ${icon('arrowRight', 'w-3.5 h-3.5')}
+          </a>
+        </div>
+
+        <div id="news-content-container">
+          ${renderNewsContent(activeTopic)}
         </div>
       </div>
     </section>
   `;
+}
+
+export function initNewsPage() {
+  const chipsContainer = document.getElementById('news-topic-chips');
+  const contentContainer = document.getElementById('news-content-container');
+  if (!chipsContainer || !contentContainer) return;
+
+  const updateView = (topic) => {
+    activeTopic = topic;
+    chipsContainer.querySelectorAll('.filter-chip').forEach((btn) => {
+      const isMatch = btn.getAttribute('data-topic') === topic;
+      btn.classList.toggle('active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+    contentContainer.innerHTML = renderNewsContent(topic);
+    document.getElementById('news-reset-filter-btn')?.addEventListener('click', () => updateView('All'));
+  };
+
+  chipsContainer.addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    const topic = chip.getAttribute('data-topic') || 'All';
+    updateView(topic);
+  });
+
+  document.getElementById('news-reset-filter-btn')?.addEventListener('click', () => updateView('All'));
 }

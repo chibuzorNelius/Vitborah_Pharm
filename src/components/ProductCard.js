@@ -2,9 +2,14 @@ import { icon } from '../utils/icons.js';
 
 export function renderProductCard(product, isSupplement = false) {
   const isPrescription = product.prescriptionRequired;
+  const isComingSoon = Boolean(product.comingSoon);
   const category = isSupplement ? product.category : product.therapeuticCategory;
-  const badgeClass = isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green');
-  const badgeLabel = isPrescription ? 'Prescription Rx' : (isSupplement ? 'Supplement' : 'OTC / Hospital');
+  const badgeClass = isComingSoon
+    ? 'badge-amber'
+    : (isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green'));
+  const badgeLabel = isComingSoon
+    ? 'Coming Soon'
+    : (isPrescription ? 'Prescription Rx' : (isSupplement ? 'Supplement' : 'OTC / Hospital'));
 
   return `
     <article class="product-card" id="card-${product.id}">

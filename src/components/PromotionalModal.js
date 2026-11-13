@@ -1,100 +1,178 @@
 import promotionData from '../data/promotions.json';
 import { icon } from '../utils/icons.js';
 import { navigate } from '../utils/router.js';
+import {
+  TWO_MINUTES_MS,
+  pickFirstPromoAd,
+  pickSecondPromoAd,
+  getRemainingDelayMs
+} from '../utils/promoScheduler.js';
+
+const VISIT_START_KEY = 'vitborah_visit_start_ts';
+const POPUP1_SHOWN_KEY = 'vitborah_popup1_shown';
+const POPUP2_SHOWN_KEY = 'vitborah_popup2_shown';
+
+let secondPopupTimerId = null;
+let firstPopupTimerId = null;
+
+function renderAdInner(ad) {
+  if (!ad) return '';
+  return `
+    <div class="promo-ad-stage">
+      <button
+        type="button"
+        class="promo-ad-close"
+        id="promo-close-btn"
+        aria-label="Close advertisement"
+        title="Close"
+      >
+        ${icon('close', 'w-4 h-4')}
+      </button>
+      <img
+        src="${ad.image}"
+        alt="${ad.title} Packaging"
+        class="promo-ad-img"
+      />
+    </div>
+
+    <div class="promo-ad-body">
+      <div class="promo-ad-eyebrow">${ad.eyebrow}</div>
+      <h2 id="promo-title" class="promo-ad-title">${ad.title}</h2>
+      ${ad.ingredients ? `<div class="promo-ad-meta">${ad.ingredients}</div>` : ''}
+      <p class="promo-ad-desc">${ad.description}</p>
+      <div class="promo-ad-actions">
+        <button type="button" class="btn btn-primary btn-sm promo-ad-cta" id="promo-primary-cta">
+          ${ad.ctaText || 'View more'} ${icon('arrowRight', 'w-3.5 h-3.5')}
+        </button>
+      </div>
+    </div>
+  `;
+}
 
 export function renderPromotionalModal() {
-  if (!promotionData.active) return '';
+  if (!promotionData.active || !Array.isArray(promotionData.ads) || promotionData.ads.length === 0) {
+    return '';
+  }
+
+  const initialAd = pickFirstPromoAd(promotionData.ads);
 
   return `
-    <div class="interstitial-backdrop" id="promo-interstitial" role="dialog" aria-modal="true" aria-labelledby="promo-title">
-      <div class="interstitial-card">
-        <button type="button" class="interstitial-close-btn" id="promo-close-btn" aria-label="Dismiss announcement">
-          ${icon('close', 'w-5 h-5')}
-        </button>
-        
-        <img src="${promotionData.image}" alt="${promotionData.title}" class="interstitial-img" />
-
-        <div class="interstitial-content">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-            <span class="badge badge-green">${promotionData.badge}</span>
-            <span class="badge badge-neutral">Campaign ID: ${promotionData.campaignId}</span>
-          </div>
-
-          <h2 id="promo-title" style="font-size: 1.65rem; margin-bottom: 0.4rem; color: var(--color-text-main);">
-            ${promotionData.title}
-          </h2>
-
-          <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--color-primary); margin-bottom: 0.85rem;">
-            ${promotionData.subtitle}
-          </h3>
-
-          <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 1.75rem;">
-            ${promotionData.description}
-          </p>
-
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-            <button type="button" class="btn btn-primary" id="promo-primary-cta">
-              ${promotionData.primaryCtaText} ${icon('arrowRight', 'w-4 h-4')}
-            </button>
-            <button type="button" class="btn btn-secondary" id="promo-secondary-dismiss">
-              Continue to Website
-            </button>
-          </div>
-        </div>
+    <div
+      class="promo-ad-backdrop"
+      id="promo-interstitial"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="promo-title"
+    >
+      <div class="promo-ad-card" id="promo-ad-card">
+        ${renderAdInner(initialAd)}
       </div>
     </div>
   `;
 }
 
 export function initPromotionalModal() {
-  if (!promotionData.active) return;
-
-  const storageKey = `vitborah_interstitial_dismissed_${promotionData.campaignId}`;
-  const isDismissed = sessionStorage.getItem(storageKey);
-
-  // If already dismissed during this visit, don't show
-  if (isDismissed === 'true') return;
+  if (!promotionData.active || !Array.isArray(promotionData.ads) || promotionData.ads.length === 0) {
+    return;
+  }
 
   const modalEl = document.getElementById('promo-interstitial');
-  const closeBtn = document.getElementById('promo-close-btn');
-  const secondaryBtn = document.getElementById('promo-secondary-dismiss');
-  const primaryCta = document.getElementById('promo-primary-cta');
+  const cardEl = document.getElementById('promo-ad-card');
+  if (!modalEl || !cardEl) return;
 
-  if (!modalEl) return;
+  const ads = promotionData.ads;
+  const firstAd = pickFirstPromoAd(ads);
+  const secondAd = pickSecondPromoAd(ads, firstAd?.id);
+  const delayMs = typeof promotionData.secondPopupDelayMs === 'number'
+    ? promotionData.secondPopupDelayMs
+    : TWO_MINUTES_MS;
 
-  const openModal = () => {
+  // Persist initial visit timestamp for this browser session so SPA navigation doesn't reset timer
+  let visitStartTs = parseInt(sessionStorage.getItem(VISIT_START_KEY) || '', 10);
+  if (Number.isNaN(visitStartTs)) {
+    visitStartTs = Date.now();
+    sessionStorage.setItem(VISIT_START_KEY, String(visitStartTs));
+  }
+
+  let currentAd = firstAd;
+  let pendingSecondAfterClose = false;
+
+  const bindCardActions = () => {
+    const closeBtn = document.getElementById('promo-close-btn');
+    const primaryCta = document.getElementById('promo-primary-cta');
+
+    closeBtn?.addEventListener('click', () => {
+      closeModal();
+    });
+
+    primaryCta?.addEventListener('click', () => {
+      const targetUrl = currentAd?.ctaUrl || '/products/therapeutic/';
+      closeModal();
+      navigate(targetUrl);
+    });
+  };
+
+  const openModalWithAd = (ad) => {
+    if (!ad) return;
+    currentAd = ad;
+    cardEl.innerHTML = renderAdInner(ad);
+    bindCardActions();
     modalEl.classList.add('active');
     document.body.style.overflow = 'hidden';
-    closeBtn?.focus();
+    document.getElementById('promo-close-btn')?.focus();
   };
 
   const closeModal = () => {
     modalEl.classList.remove('active');
     document.body.style.overflow = '';
-    sessionStorage.setItem(storageKey, 'true');
+
+    if (pendingSecondAfterClose && sessionStorage.getItem(POPUP2_SHOWN_KEY) !== 'true') {
+      pendingSecondAfterClose = false;
+      setTimeout(() => {
+        if (!modalEl.classList.contains('active') && sessionStorage.getItem(POPUP2_SHOWN_KEY) !== 'true') {
+          sessionStorage.setItem(POPUP2_SHOWN_KEY, 'true');
+          openModalWithAd(secondAd);
+        }
+      }, 350);
+    }
   };
 
-  // Delay opening slightly (800ms) for smooth entrance
-  setTimeout(() => {
-    openModal();
-  }, 800);
+  // Clear stale timers on re-init
+  if (firstPopupTimerId) {
+    clearTimeout(firstPopupTimerId);
+    firstPopupTimerId = null;
+  }
+  if (secondPopupTimerId) {
+    clearTimeout(secondPopupTimerId);
+    secondPopupTimerId = null;
+  }
 
-  closeBtn?.addEventListener('click', closeModal);
-  secondaryBtn?.addEventListener('click', closeModal);
+  // 1. Show First Popup immediately on first visit
+  if (sessionStorage.getItem(POPUP1_SHOWN_KEY) !== 'true') {
+    firstPopupTimerId = setTimeout(() => {
+      if (sessionStorage.getItem(POPUP1_SHOWN_KEY) !== 'true') {
+        sessionStorage.setItem(POPUP1_SHOWN_KEY, 'true');
+        openModalWithAd(firstAd);
+      }
+    }, 180);
+  }
 
-  primaryCta?.addEventListener('click', () => {
-    closeModal();
-    navigate(promotionData.primaryCtaUrl);
-  });
+  // 2. Schedule Second Popup (different cream) after ~2 minutes on the website
+  if (sessionStorage.getItem(POPUP2_SHOWN_KEY) !== 'true' && secondAd) {
+    const remainingMs = getRemainingDelayMs(visitStartTs, Date.now(), delayMs);
+    secondPopupTimerId = setTimeout(() => {
+      if (sessionStorage.getItem(POPUP2_SHOWN_KEY) === 'true') return;
+      if (modalEl.classList.contains('active')) {
+        // Wait cleanly until visitor closes Popup 1 rather than interrupting/stacking
+        pendingSecondAfterClose = true;
+      } else {
+        sessionStorage.setItem(POPUP2_SHOWN_KEY, 'true');
+        openModalWithAd(secondAd);
+      }
+    }, remainingMs);
+  }
 
-  // Close on backdrop click outside card
-  modalEl.addEventListener('click', (e) => {
-    if (e.target === modalEl) {
-      closeModal();
-    }
-  });
-
-  // Escape key handler
+  // Escape key dismissal for accessibility (backdrop intentionally blocks casual outside clicks)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalEl.classList.contains('active')) {
       closeModal();

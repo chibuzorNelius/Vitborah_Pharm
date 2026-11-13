@@ -11,7 +11,7 @@ import { renderSupplementsCollectionPage, initSupplementsCollectionPage } from '
 import { renderProductDetailPage, initProductDetailPage } from './pages/ProductDetailPage.js';
 import { renderAboutPage, initAboutPage } from './pages/AboutPage.js';
 import { renderCeoProfilePage } from './pages/CeoProfilePage.js';
-import { renderNewsPage } from './pages/NewsPage.js';
+import { renderNewsPage, initNewsPage } from './pages/NewsPage.js';
 import { renderArticleDetailPage } from './pages/ArticleDetailPage.js';
 import { renderCharityPage, initCharityPage } from './pages/CharityPage.js';
 import { renderPartnersPage } from './pages/PartnersPage.js';
@@ -141,11 +141,11 @@ registerRoutes([
   },
   {
     path: '/news',
-    handler: () => setPageContent(renderNewsPage())
+    handler: () => setPageContent(renderNewsPage(), initNewsPage)
   },
   {
     path: '/news/',
-    handler: () => setPageContent(renderNewsPage())
+    handler: () => setPageContent(renderNewsPage(), initNewsPage)
   },
   {
     path: '/news/:slug',

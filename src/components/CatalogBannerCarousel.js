@@ -50,6 +50,11 @@ export function renderCatalogBannerCarousel(products, carouselId = 'catalog-bann
               <div class="cbc-info-panel" style="background: ${gradient};">
                 <div class="cbc-info-inner">
                   <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap;">
+                    ${product.comingSoon ? `
+                      <span class="badge" style="background: rgba(251, 191, 36, 0.22); border-color: rgba(251, 191, 36, 0.45); color: #fde68a; font-size: 0.74rem;">
+                        Coming Soon · Not Yet Arrived
+                      </span>
+                    ` : ''}
                     ${product.dosageForm || product.productType ? `
                       <span class="badge" style="background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.28); color: #d1fae5; font-size: 0.74rem;">
                         ${product.dosageForm || product.productType}

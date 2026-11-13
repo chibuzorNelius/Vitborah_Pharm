@@ -4,15 +4,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
-    strictPort: false,
+    strictPort: true,
     cors: true,
     allowedHosts: true,
-    hmr: {
-      overlay: true
-    },
+    hmr: process.env.DISABLE_HMR !== 'true',
     watch: {
-      usePolling: true,
-      interval: 100
+      ignored: ['**/dist/**', '**/.playwright-cli/**', '**/node_modules/**']
     }
   },
   preview: {

@@ -81,8 +81,8 @@ export function renderProductDetailPage(params) {
           <!-- Left: High-Res Packaging Photo (Responsive for Mobile) -->
           <div>
             <div class="product-detail-img-card" style="background: radial-gradient(circle, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; align-items: center; justify-content: center; position: relative; min-height: 320px; box-shadow: var(--shadow-sm);">
-              <span class="badge ${isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green')}" style="position: absolute; top: 1rem; left: 1rem; font-size: 0.775rem; padding: 0.35rem 0.75rem;">
-                ${isPrescription ? 'Prescription Only (Rx)' : (isSupplement ? 'Dietary Supplement' : 'Therapeutic Formulation')}
+              <span class="badge ${product.comingSoon ? 'badge-amber' : (isPrescription ? 'badge-red' : (isSupplement ? 'badge-blue' : 'badge-green'))}" style="position: absolute; top: 1rem; left: 1rem; font-size: 0.775rem; padding: 0.35rem 0.75rem;">
+                ${product.comingSoon ? 'Coming Soon · Not Yet Arrived' : (isPrescription ? 'Prescription Only (Rx)' : (isSupplement ? 'Dietary Supplement' : 'Therapeutic Formulation'))}
               </span>
 
               <img 
@@ -173,6 +173,16 @@ export function renderProductDetailPage(params) {
               </div>
             ` : ''}
 
+            ${product.comingSoon ? `
+              <div style="background-color: #fffbeb; border: 1px solid #fcd34d; border-radius: var(--radius-md); padding: 0.9rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #92400e; line-height: 1.5; display: flex; gap: 0.65rem; align-items: flex-start;">
+                <span style="color: #d97706; margin-top: 2px;">${icon('clock', 'w-4 h-4')}</span>
+                <div>
+                  <strong>Pre-Arrival Notice (Not Yet in Stock):</strong>
+                  This product has not arrived in our warehouse yet. Licensed pharmacies and distributors may register advance allocation inquiries ahead of stock release.
+                </div>
+              </div>
+            ` : ''}
+
             <!-- Clinical Safety Warning -->
             <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; font-size: 0.825rem; color: #92400e; line-height: 1.5; display: flex; gap: 0.65rem; align-items: flex-start;">
               <span style="color: #b45309; margin-top: 2px;">${icon('info', 'w-4 h-4')}</span>
@@ -187,7 +197,7 @@ export function renderProductDetailPage(params) {
             <!-- Procurement & Direct Contact Buttons -->
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
               <a href="/contact/" class="btn btn-primary" style="flex: 1 1 200px; justify-content: center;">
-                Request Wholesale Quote ${icon('arrowRight', 'w-4 h-4')}
+                ${product.comingSoon ? 'Request Pre-Arrival Allocation' : 'Request Wholesale Quote'} ${icon('arrowRight', 'w-4 h-4')}
               </a>
               <a href="${collectionUrl}" class="btn btn-secondary">
                 Back to ${collectionName}

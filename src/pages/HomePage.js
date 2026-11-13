@@ -27,7 +27,8 @@ export function renderHomePage() {
     const url = item.route || `/products/${item.id || item.slug}/`;
     const image = item.imagePath || item.image || (isSupplement ? '/public/supplements_image/berberine.jpeg' : '/public/products_image/artborah.jpeg');
     const title = item.brandName || item.name;
-    const badge = item.category || (isSupplement ? 'New AGE' : 'Prescription');
+    const badgeBase = item.category || item.therapeuticCategory || (isSupplement ? 'New AGE' : 'Prescription');
+    const badge = item.comingSoon ? `Coming Soon · ${badgeBase}` : badgeBase;
     const desc = item.shortDescription || item.description || item.indications || '';
 
     return `
@@ -98,7 +99,7 @@ export function renderHomePage() {
             </p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
               <a href="/products/supplements/" class="btn btn-primary" style="font-weight: 700; background-color: #22c55e; border-color: #22c55e; color: #ffffff;">
-                View All 13 Supplements ${icon('arrowRight', 'w-4 h-4')}
+                View All ${supplements.length} Supplements ${icon('arrowRight', 'w-4 h-4')}
               </a>
               <a href="/work-with-us/" class="btn btn-outline" style="border-color: rgba(255,255,255,0.7); color: #ffffff;">
                 Distributor Inquiries
@@ -199,7 +200,7 @@ export function renderHomePage() {
             </p>
           </div>
           <a href="/products/therapeutic/" class="btn btn-outline btn-sm">
-            Browse All 17 Medicines ${icon('arrowRight', 'w-3.5 h-3.5')}
+            Browse All ${therapeuticProducts.length} Medicines ${icon('arrowRight', 'w-3.5 h-3.5')}
           </a>
         </div>
       </div>
@@ -224,7 +225,7 @@ export function renderHomePage() {
             </p>
           </div>
           <a href="/products/supplements/" class="btn btn-outline btn-sm">
-            Browse All 13 Supplements ${icon('arrowRight', 'w-3.5 h-3.5')}
+            Browse All ${supplements.length} Supplements ${icon('arrowRight', 'w-3.5 h-3.5')}
           </a>
         </div>
       </div>
@@ -434,17 +435,17 @@ export function renderHomePage() {
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
           ${latestNews.map(article => `
             <article class="card card-hover" style="display: flex; flex-direction: column;">
-              <div style="height: 180px; overflow: hidden; background-color: var(--color-bg-subtle);">
+              <div style="height: 180px; overflow: hidden; background-color: var(--color-bg-subtle); ${article.imageFit === 'contain' ? 'padding: 1rem; display: flex; align-items: center; justify-content: center;' : ''}">
                 <img 
                   src="${article.featuredImage || '/company_image/pharmacy.jpeg'}" 
                   alt="${article.title}" 
-                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                  style="width: 100%; height: 100%; object-fit: ${article.imageFit === 'contain' ? 'contain' : 'cover'}; transition: transform 0.3s ease;"
                   loading="lazy"
                 />
               </div>
               <div style="padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.775rem; color: var(--color-text-muted);">
-                  <span class="badge badge-green" style="font-size: 0.7rem;">${article.category}</span>
+                  <span class="badge ${article.topic === 'Coming Soon' ? 'badge-amber' : (article.topic === 'Flash Sales' ? 'badge-red' : 'badge-green')}" style="font-size: 0.7rem;">${article.category}</span>
                   <span>${article.date}</span>
                 </div>
                 <h3 style="font-size: 1.1rem; line-height: 1.35; margin-bottom: 0.5rem; color: var(--color-text-main);">
