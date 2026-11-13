@@ -20,8 +20,8 @@ export function renderAboutPage() {
     },
     {
       year: '2012',
-      title: 'Therapeutic Portfolio Expansion',
-      desc: 'Secured landmark NAFDAC product registrations across essential antibacterial and antimalarial categories including Boraflox 500 Ciprofloxacin and Staxim Cefuroxime.'
+      title: 'New AGE Nutraceutical Portfolio Launch',
+      desc: 'Unveiled the New AGE dietary supplement line, providing certified formulations including Berberine 600mg, Omega-3, and Magnesium Glycinate.'
     },
     {
       year: '2017',
@@ -30,19 +30,15 @@ export function renderAboutPage() {
     },
     {
       year: '2021',
-      title: 'Ibeju-Lekki Central Warehousing Hub',
-      desc: 'Commissioned expanded central warehousing at No. 2, Olori Kudrat Elegushi Street, Awoyaya, Ibeju-Lekki, boosting cold-chain capacity.'
-    },
-    {
-      year: '2024',
-      title: 'Formalization of Vitborah Foundation',
-      desc: 'Formalized corporate social responsibility outreach into the Vitborah Foundation, delivering free community health screenings and essential treatments.'
+      title: 'Lunsh more destribution hub across nigeria',
+      desc: 'We open destribution center at kano State,Aba Market and Ekiti State.'
     },
     {
       year: '2026',
-      title: 'New AGE Nutraceutical Portfolio Launch',
-      desc: 'Unveiled the New AGE dietary supplement line, providing certified formulations including Berberine 600mg, Omega-3, and Magnesium Glycinate.'
+      title: 'Up-scale to total of 24 therapic medicens ',
+      desc: 'we introduce some new products to our collections including skine care creams.'
     }
+   
   ];
 
   const { boardMembers } = leadershipData;
@@ -56,6 +52,7 @@ export function renderAboutPage() {
           src="/company_image/boarmembers.jpeg"
           alt="Vitborah Board Members and Leadership Team"
           class="about-hero-bg-img"
+          stlyle="object-fit:style="width: 100%; height: 340px; object-fit: cover; object-position: center ;"
         />
       </div>
       <!-- Semi-transparent overlay -->
