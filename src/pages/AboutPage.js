@@ -1,4 +1,4 @@
-﻿import leadershipData from '../data/leadership.json';
+import leadershipData from '../data/leadership.json';
 import branchesData from '../data/branches.json';
 import { icon } from '../utils/icons.js';
 import { updateSEO } from '../utils/seo.js';
@@ -124,7 +124,7 @@ export function renderAboutPage() {
           </div>
 
           <div class="responsive-img-frame" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);">
-            <img src="/company_image/boarmembers.jpeg" alt="Vitborah Board Members and Manufacturing Partners" style="width: 100%; max-height: 440px; object-fit: cover;" loading="lazy" />
+            <img src="/company_image/boarmembers.jpeg" alt="Vitborah Board Members and Manufacturing Partners" style="width: 100%; height: clamp(320px, 42vw, 480px); object-fit: cover; object-position: center 15%; display: block;" loading="lazy" />
             <div style="background: var(--color-bg-subtle); padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--color-text-muted); border-top: 1px solid var(--color-border); text-align: center;">
               <strong>Vitborah Board Members:</strong> Executive leadership and international technical manufacturing partners collaborating on healthcare solutions.
             </div>

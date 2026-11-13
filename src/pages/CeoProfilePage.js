@@ -49,11 +49,11 @@ export function renderCeoProfilePage() {
           
           <!-- Portrait & Credentials Column -->
           <div>
-            <div style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 4px solid var(--color-primary-surface); position: relative; background: #fff;">
+            <div style="max-width: 460px; margin: 0 auto; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); border: 4px solid var(--color-primary-surface); position: relative; background: #fff;">
               <img 
                 src="/company_image/CEO profile.jpeg" 
                 alt="Mr. Okechukwu Vitus Agada - Managing Director & CEO" 
-                style="width: 100%; height: 460px; object-fit: cover; object-position: center top;"
+                style="width: 100%; height: auto; display: block; object-fit: contain; object-position: center top;"
               />
               <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(7, 72, 36, 0.95), transparent); padding: 2rem 1.5rem 1.25rem; color: #ffffff;">
                 <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #a7f3d0; font-weight: 700; margin-bottom: 0.25rem;">
